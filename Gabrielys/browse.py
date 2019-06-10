@@ -3,9 +3,8 @@ from tkinter import filedialog as fd
 
 
 class Browse(tk.Frame):
-    """ Creates a frame that contains a button when clicked lets the user to select
-    a file and put its filepath into an entry.
-    """
+    # Creates a frame that contains a button when clicked lets the user to select
+    # a file and put its filepath into an entry.
 
     def __init__(self, master, initialdir='', filetypes=()):
         super().__init__(master)
@@ -24,9 +23,8 @@ class Browse(tk.Frame):
         self._button.pack(anchor='se')
 
     def browse(self):
-        """ Browses a .png file or all files and then puts it on the entry.
-        """
-
+      # Browses a .png file or all files and then puts it on the entry.
+       
         self.filepath.set(fd.askopenfilename(initialdir=self._initaldir,
                                              filetypes=self._filetypes))
 

@@ -121,17 +121,19 @@ class LSBSteg():
         return unhideTxt
 
     def encode_image(self, imtohide):
-        w = imtohide.width
-        h = imtohide.height
-        if self.width*self.height*self.nbchannels < w*h*imtohide.channels:
+        i = imtohide
+        w, h, channels = i.shape
+        #w = imtohide.width
+        #h = imtohide.height
+        if self.width*self.height*self.nbchannels < w*h*channels:
             raise SteganographyException("Carrier image not big enough to hold all the datas to steganography")
         binw = self.binary_value(w, 16) #Width coded on to byte so width up to 65536
         binh = self.binary_value(h, 16)
         self.put_binary_value(binw) #Put width
         self.put_binary_value(binh) #Put height
-        for h in range(imtohide.height): #Iterate the hole image to put every pixel values
-            for w in range(imtohide.width):
-                for chan in range(imtohide.channels):
+        for h in range(h): #Iterate the hole image to put every pixel values
+            for w in range(w):
+                for chan in range(channels):
                     val = imtohide[h,w][chan]
                     self.put_binary_value(self.byteValue(int(val)))
         return self.image
@@ -143,7 +145,7 @@ class LSBSteg():
         unhideimg = np.zeros((width,height, 3), np.uint8) #Create an image in which we will put all the pixels read
         for h in range(height):
             for w in range(width):
-                for chan in range(unhideimg.channels):
+                for chan in range(3):
                     val = list(unhideimg[h,w])
                     val[chan] = int(self.read_byte(),2) #Read the value
                     unhideimg[h,w] = tuple(val)
@@ -163,7 +165,7 @@ class LSBSteg():
         l = int(self.read_bits(64), 2)
         output = b""
         for i in range(l):
-            output += chr(int(self.read_byte(),2)).encode("utf-8")
+            output += chr(int(self.read_byte(),2))#.encode("utf-8")
         return output
 
 

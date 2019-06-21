@@ -7,5 +7,5 @@ from LSBSteg import *
 #cv2.imwrite("recovered.jpg", orig_im)
 steg = LSBSteg(cv2.imread("frogWithPayload.png"))
 binary = steg.decode_binary()
-file = open("recovered.jpg", "wb")
+file = open("recovered.docx", "wb")
 file.write(binary)

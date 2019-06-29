@@ -1,33 +1,54 @@
 import sys
-from PyQt4 import QtGui
+from PyQt5 import QtGui
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QVBoxLayout, QDesktopWidget, QLabel
 
 
-class Example(QtGui.QWidget):
+
+# Initial Page
+class Example(QWidget):
     
     def __init__(self):
         super(Example, self).__init__()
         
         self.initUI()
-        
+    
+    def onTopButtonClicked(self):
+        layout = QVBoxLayout()
+        layout.addWidget(QLabel('Second Page'))
+        layout.addWidget(QLabel('Random Label'))
+        self.setLayout(layout)
+        self.show()
+
     def initUI(self):               
         
-        self.resize(250, 150)
+        self.resize(500, 500)
         self.center()
         
-        self.setWindowTitle('Center')    
+        self.setWindowTitle('Center')  
+        
+        layout = QVBoxLayout() 
+        secondPageButton = QPushButton('Navigate To Page')
+        layout.addWidget(secondPageButton)
+        secondPageButton.clicked.connect(self.onTopButtonClicked)
+        layout.addWidget(QPushButton('Top')) 
+        layout.addWidget(QPushButton('Bottom')) 
+        self.setLayout(layout)
         self.show()
         
     def center(self):
         
         qr = self.frameGeometry()
-        cp = QtGui.QDesktopWidget().availableGeometry().center()
+        cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
+
+    
+
         
         
 def main():
     
-    app = QtGui.QApplication(sys.argv)
+    app = QApplication(sys.argv)
     ex = Example()
     sys.exit(app.exec_())
 

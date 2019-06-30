@@ -9,14 +9,16 @@ class Widget(QtGui.QWidget):
         self.initUI()
 
     def initUI(self):
-        self.setGeometry(600, 300, 400, 200)
-        self.setWindowTitle('StegSleuth File Browser')     
-	
-	btn = QtGui.QPushButton('Browse', self)
+        self.setWindowTitle('StegSleuth File Browser')  
+
+        pic = QtGui.QLabel(self)
+        pic.setPixmap(QtGui.QPixmap("/root/StegSleuth.jpeg"))
+        pic.show()
+      
+        btn = QtGui.QPushButton('Browse', self)
         btn.resize(btn.sizeHint())
         btn.clicked.connect(self.SingleBrowse)
-        btn.move(150, 100) 
-	
+        btn.move(350, 400) 
         self.show()
 
     def SingleBrowse(self):

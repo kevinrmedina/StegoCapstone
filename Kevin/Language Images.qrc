@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="Hieroglyphics">
+    <file>hieroglyphics.jpg</file>
+  </qresource>
+</RCC>

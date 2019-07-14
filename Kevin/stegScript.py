@@ -38,31 +38,33 @@ def help():
     -t: Text
     -f: File
     """
+def main():
+#If first argument is zero then it's encoding
+    if (sys.argv[1]) == '-e':
+        #If second argument is zero then it's for file
+        if sys.argv[2] == '-f':
+            cF = sys.argv[3]
+            pF = sys.argv[4]
+            nF = sys.argv[5]
+            encodeFile(cF, pF, nF)
+        #If second argument is one then it's for text
+        elif sys.argv[2] == '-t':
+            cF = sys.argv[3]
+            nF = sys.argv[4]
+            text = sys.argv[5]
+            encodeText(cF, nF, text)
+    #If first argument is zero then it's encoding
+    elif sys.argv[1] == '-d':
+        #If second argument is zero then it's for file
+        if sys.argv[2] == '-f':
+            cF = sys.argv[3]
+            nF = sys.argv[4]
+            decodeFile(cF, nF)
+        #If second argument is one then it's for text
+        elif sys.argv[2] == '-t':
+            cF = sys.argv[3]
+            decodeText(cF)
+    elif sys.argv[1] == '-h':
+        help()
 
-#If first argument is zero then it's encoding
-if (sys.argv[1]) == '-e':
-    #If second argument is zero then it's for file
-    if sys.argv[2] == '-f':
-        cF = sys.argv[3]
-        pF = sys.argv[4]
-        nF = sys.argv[5]
-        encodeFile(cF, pF, nF)
-    #If second argument is one then it's for text
-    elif sys.argv[2] == '-t':
-        cF = sys.argv[3]
-        nF = sys.argv[4]
-        text = sys.argv[5]
-        encodeText(cF, nF, text)
-#If first argument is zero then it's encoding
-elif sys.argv[1] == '-d':
-    #If second argument is zero then it's for file
-    if sys.argv[2] == '-f':
-        cF = sys.argv[3]
-        nF = sys.argv[4]
-        decodeFile(cF, nF)
-    #If second argument is one then it's for text
-    elif sys.argv[2] == '-t':
-        cF = sys.argv[3]
-        decodeText(cF)
-elif sys.argv[1] == '-h':
-    help()
+main()

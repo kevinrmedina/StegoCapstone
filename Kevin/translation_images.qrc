@@ -1,0 +1,9 @@
+<RCC>
+  <qresource prefix="translation_images">
+    <file>pigpen.gif</file>
+    <file>wingdings.gif</file>
+    <file>unknown.jpeg</file>
+    <file>morseCode.jpeg</file>
+    <file>hieroglyphics.jpg</file>
+  </qresource>
+</RCC>

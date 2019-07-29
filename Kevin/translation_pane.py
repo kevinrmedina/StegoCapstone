@@ -48,10 +48,11 @@ class Ui(QtWidgets.QDialog):
                 count += 1
         if count >= 1:
             self.textEdit.clear()
-            self.textEdit.append(morseDecipher.encrypt(str.upper(text)))
+            inputText = str.upper(str(text))
+            self.textEdit.append(morseDecipher.encrypt(inputText.replace('\n', '')))
         else:
             self.textEdit.clear()
-            self.textEdit.append(morseDecipher.decrypt(text + ' '))
+            self.textEdit.append(morseDecipher.decrypt(str(text) + ' '))
 
 app = QtWidgets.QApplication(sys.argv)
 window = Ui()

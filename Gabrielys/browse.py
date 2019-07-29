@@ -31,8 +31,8 @@ class Ui_Form(object):
 				
 		if fileName:
 			print(fileName)
-			carrier = fileName
-			subprocess.popen(["stegScript.py", "-e", carrier])
+			#carrier = fileName
+			#subprocess.popen(["stegScript.py", "-e", carrier])
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)

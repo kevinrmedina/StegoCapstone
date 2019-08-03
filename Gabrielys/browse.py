@@ -1,10 +1,11 @@
 #!/usr/bin/env python3
 
-import sys, os
+import sys, os, subprocess
 from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon
 from stegScript import *
+from PIL import Image
 
 class Ui_Form(object):
 	def setupUi(self, Form):
@@ -30,9 +31,16 @@ class Ui_Form(object):
 		fileName, _ = QFileDialog.getOpenFileName(None, "QFileDialog.getOpenFileName()", "", "*.png", options = options)
 				
 		if fileName:
+			# Print the image path
 			print(fileName)
+	
+			# It is a test to confirm the operation of the open button.
+			image = Image.open(fileName)
+			image.show()
+
 			#carrier = fileName
-			#subprocess.popen(["stegScript.py", "-e", carrier])
+			#subprocess.Popen(['./stegScript.py', '-e', '-f', carrier], shell = True)
+			
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)

@@ -35,12 +35,21 @@ class Ui_Form(object):
 			print(fileName)
 	
 			# It is a test to confirm the operation of the open button.
-			image = Image.open(fileName)
-			image.show()
+			#image = Image.open(fileName)
+			#image.show()
 
-			#carrier = fileName
-			#subprocess.Popen(['./stegScript.py', '-e', '-f', carrier], shell = True)
-			
+				
+		options = QFileDialog.Options()
+		options |= QFileDialog.DontUseNativeDialog
+		fileName2, _ = QFileDialog.getOpenFileName(None, "QFileDialog.getOpenFileName()", "", "*.png", options = options)
+				
+		if fileName2:
+			# Print the image path
+			print(fileName2)
+
+		carrier = fileName
+		payload = fileName2
+		subprocess.call(["./stegScript.py", "-e", "-f", carrier, payload], shell = True)
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)

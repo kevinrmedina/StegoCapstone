@@ -79,9 +79,10 @@ class WindowTwo(QtWidgets.QWidget):
         
         nextButton.clicked.connect(self.NextButtonClicked)
         prevButton.clicked.connect(self.PrevButtonClicked)
+
+        nextprevButtons.addWidget(prevButton)
         nextprevButtons.addWidget(nextButton)
         
-        nextprevButtons.addWidget(prevButton)
         layout.addLayout(nextprevButtons, 1, 1)
         # self.label = QtWidgets.QLabel(text)
         # layout.addWidget(self.label)
@@ -94,6 +95,7 @@ class WindowTwo(QtWidgets.QWidget):
         imageLabel.setStyleSheet("border-style: solid; border-width: 2px; border-color: black;")
         layout.addWidget(imageLabel, 0, 1)
 
+        ##Encode/Decode radio buttons
         radiobutton = QtWidgets.QRadioButton("Encode")
         radiobutton.setChecked(True)
         radiobutton.toggled.connect(self.onClicked)
@@ -160,7 +162,7 @@ class Login(QtWidgets.QWidget):
 
 
 class Controller:
-
+    
     def __init__(self):
         pass
 
@@ -177,8 +179,12 @@ class Controller:
 
     def show_window_two(self, imageData):
         self.window_two = WindowTwo(imageData)
+        
         self.window.close()
         self.window_two.show()
+
+    def show_Content_Page(self, content):
+        self.
 
 
 def main():

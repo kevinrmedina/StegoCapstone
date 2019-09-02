@@ -13,6 +13,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 ###########################
 # This class may serve as an example on how to setup a .py file generated from a .ui file to be compatible 
 # with our code architecture
+#
+#The comments in the code shows the minimum requirements for the code to be compatible with the Controller class
 ###########################
 
 class HomePage(QtCore.QObject):   # inherit class from QObject rather than object to be able to emit signals

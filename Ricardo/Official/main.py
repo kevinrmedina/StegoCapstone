@@ -3,6 +3,7 @@ from PyQt5 import QtCore, QtWidgets
 from PyQt5.QtWidgets import QDesktopWidget
 from PyQt5.QtGui import QPixmap
 from fileservice import FileService
+from UIFiles.HomePage import HomePage
 
 WINDOWWIDTH = 800
 WINDOWHEIGHT = 600
@@ -169,7 +170,13 @@ class Controller:
     def show_login(self):
         self.login = Login()
         self.login.switch_window.connect(self.show_main)
+        self.home.close()
         self.login.show()
+
+    def show_home(self):
+        self.home = HomePage()
+        self.home.switch_window.connect(self.show_login)
+        self.home.show()
 
     def show_main(self):
         self.window = MainWindow()
@@ -179,18 +186,16 @@ class Controller:
 
     def show_window_two(self, imageData):
         self.window_two = WindowTwo(imageData)
-        
         self.window.close()
         self.window_two.show()
 
-    def show_Content_Page(self, content):
-        self.
+        
 
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
     controller = Controller()
-    controller.show_login()
+    controller.show_home()
     sys.exit(app.exec_())
 
 

@@ -2,13 +2,13 @@ import mimetypes
 import argparse
 import math
 import os
- 
+import sys
  
 def dump(filepath, chunksize = 16, verbose = False, info = False, raw = False):
     if not os.path.exists(filepath): raise FileNotFoundError("file not found")
     if not os.path.isfile(filepath): raise IsADirectoryError("not a file")
  
-    #avoid odd numbers
+    #avoid dd numbers
     chunksize += chunksize % 2
     separator = '' if raw else '|'
     line = 0
@@ -43,6 +43,8 @@ def dump(filepath, chunksize = 16, verbose = False, info = False, raw = False):
  
             if verbose: print(text, end='')
             line += 1
+
+
     """
             #Uncomment this if you want use the function for ohter purpose than just
             #print the result, otherwise it's just take memory and slowdown the script.
@@ -62,6 +64,11 @@ if __name__ == "__main__":
     #No verbose options because it's useless, if we dont print anythin we wont see the result
  
     args = parser.parse_args()
- 
-    if args.file: dump(args.file, args.chunksize, True, args.info, args.raw)
+    
+    if args.file: 
+        sys.stdout = open('file', 'w')
+        dump(args.file, args.chunksize, True, args.info, args.raw)
+        
     else: print(parser.usage)
+    
+    #print(parser.usage)

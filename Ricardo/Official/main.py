@@ -4,6 +4,8 @@ from PyQt5.QtWidgets import QDesktopWidget
 from PyQt5.QtGui import QPixmap
 from fileservice import FileService
 from UIFiles.HomePage import HomePage
+from UIFiles.BrowsePage import BrowsePage
+from UIFiles.EncodeDecodePage import EncodeDecodePage
 
 WINDOWWIDTH = 800
 WINDOWHEIGHT = 600
@@ -175,8 +177,21 @@ class Controller:
 
     def show_home(self):
         self.home = HomePage()
-        self.home.switch_window.connect(self.show_login)
+        self.home.switch_window.connect(self.showBrowsePage)
         self.home.show()
+
+    def showBrowsePage(self):
+        self.browsepage = BrowsePage()
+        self.browsepage.switch_window.connect(self.ShowDecodeEncodePage)
+        self.home.close()
+        self.browsepage.show()
+    
+    def ShowDecodeEncodePage(self, imageData):
+        self.deencodepage = EncodeDecodePage(imageData)
+        #self.deencodepage.switch_window.connect(self.ShowText)
+        self.browsepage.close()
+        self.deencodepage.show()
+
 
     def show_main(self):
         self.window = MainWindow()

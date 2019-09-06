@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Form</class>
+ <widget class="QWidget" name="Form">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>576</width>
+    <height>448</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="QPushButton" name="pushButton">
+   <property name="geometry">
+    <rect>
+     <x>230</x>
+     <y>300</y>
+     <width>89</width>
+     <height>27</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Browse File</string>
+   </property>
+  </widget>
+  <widget class="QLabel" name="label">
+   <property name="geometry">
+    <rect>
+     <x>190</x>
+     <y>50</y>
+     <width>171</width>
+     <height>151</height>
+    </rect>
+   </property>
+   <property name="text">
+    <string>Here goes a picture </string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

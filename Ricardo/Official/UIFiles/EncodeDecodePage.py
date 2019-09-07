@@ -11,10 +11,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class EncodeDecodePage(QtCore.QObject):
-    switch_window = QtCore.pyqtSignal(object, object)  # Add switch_window signal for controller to use to switch layouts
-    def __init__(self, ImageData):
+    switch_window = QtCore.pyqtSignal(object, object, object)  # Add switch_window signal for controller to use to switch layouts
+    def __init__(self, ImageData, ImageDir):
         QtCore.QObject.__init__(self) # call init from parent class
         self.imagedata = ImageData
+        self.imagedir = ImageDir
         self.Form = QtWidgets.QWidget() # initialize widget (this is what Qt shows)
         
         self.setupUi(self.Form) # sets up ui in Form widget
@@ -28,7 +29,7 @@ class EncodeDecodePage(QtCore.QObject):
             config = "Encode"
         else:
             config = "Decode"
-        self.switch_window.emit(self.imagedata, config)
+        self.switch_window.emit(self.imagedata, config, self.imagedir)
     
     def close(self): # implement close method used by controller
         self.Form.close()

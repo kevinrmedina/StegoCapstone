@@ -18,8 +18,8 @@
     <rect>
      <x>30</x>
      <y>100</y>
-     <width>160</width>
-     <height>231</height>
+     <width>201</width>
+     <height>272</height>
     </rect>
    </property>
    <layout class="QVBoxLayout" name="verticalLayout">
@@ -35,9 +35,6 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QComboBox" name="comboBox"/>
-      </item>
      </layout>
     </item>
     <item>
@@ -49,21 +46,14 @@
         </property>
        </widget>
       </item>
-      <item>
-       <widget class="QComboBox" name="comboBox_2">
-        <property name="insertPolicy">
-         <enum>QComboBox::InsertAtBottom</enum>
-        </property>
-       </widget>
-      </item>
      </layout>
     </item>
     <item>
      <layout class="QVBoxLayout" name="verticalLayout_4">
       <item>
-       <widget class="QRadioButton" name="radioButton_3">
+       <widget class="QCheckBox" name="checkBox">
         <property name="text">
-         <string>RadioButton</string>
+         <string>Cryptography</string>
         </property>
        </widget>
       </item>
@@ -71,6 +61,20 @@
        <widget class="QComboBox" name="comboBox_3"/>
       </item>
      </layout>
+    </item>
+    <item>
+     <widget class="QPlainTextEdit" name="plainTextEdit">
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>45</height>
+       </size>
+      </property>
+      <property name="plainText">
+       <string>Encryption Key
+</string>
+      </property>
+     </widget>
     </item>
    </layout>
   </widget>

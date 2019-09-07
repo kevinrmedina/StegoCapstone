@@ -8,6 +8,8 @@ from UIFiles.BrowsePage import BrowsePage
 from UIFiles.EncodeDecodePage import EncodeDecodePage
 from UIFiles.ChooseCarrierType import ChooseCarrierTypePage
 from UIFiles.Translation import TanslationPage
+from UIFiles.EncryptionPage import EncryptionPage
+from UIFiles.TextPayloadPage import TextPayloadPage
 
 WINDOWWIDTH = 800
 WINDOWHEIGHT = 600
@@ -188,18 +190,30 @@ class Controller:
         self.home.close()
         self.browsepage.show()
     
-    def ShowDecodeEncodePage(self, imageData):
+    def ShowDecodeEncodePage(self, imageData, ImageDir):
         print(imageData)
-        self.deencodepage = EncodeDecodePage(imageData)
-        self.deencodepage.switch_window.connect(self.ShowChooseCarrierTypePage)
+        self.deencodepage = EncodeDecodePage(imageData, ImageDir)
+        self.deencodepage.switch_window.connect(self.ShowChoosePayloadTypePage)
         self.browsepage.close()
         self.deencodepage.show()
 
-    def ShowChooseCarrierTypePage(self, imageData, config):
-        self.choosecarrier = ChooseCarrierTypePage(imageData, config)
-        self.choosecarrier.switch_window.connect(self.ShowChooseCarrierTypePage)
+    def ShowChoosePayloadTypePage(self, imageData, config, ImageDir):
+        self.choosecarrier = ChooseCarrierTypePage(imageData, config, ImageDir)
+        self.choosecarrier.switch_window.connect(self.ChoosePayloadTypeNextButton)
         self.deencodepage.close()
         self.choosecarrier.show()
+    
+    def ChoosePayloadTypeNextButton(self, imageData, config, CarrierDir):
+        self.encryption = EncryptionPage(imageData, config, CarrierDir)
+        self.encryption.switch_window.connect(self.ShowTextPayloadPage)
+        self.choosecarrier.close()
+        self.encryption.show()
+
+
+    def ShowTextPayloadPage(self, imageData, config, CarrierDir):
+        self.textpayload = TextPayloadPage(imageData, config, CarrierDir)
+        self.textpayload.show()
+        self.encryption.close()
 
     def show_main(self):
         self.window = MainWindow()

@@ -12,7 +12,7 @@ from fileservice import FileService
 
 
 class BrowsePage(QtCore.QObject):
-    switch_window = QtCore.pyqtSignal(object)
+    switch_window = QtCore.pyqtSignal(object, object)
     
     def __init__(self):
         QtCore.QObject.__init__(self) # call init from parent class
@@ -24,7 +24,7 @@ class BrowsePage(QtCore.QObject):
         self.Form.show()
 
     def EmitSwitch(self, imageData): # implement event that will emit the switch window signal 
-        self.switch_window.emit(imageData)
+        self.switch_window.emit(imageData, self.ImageName)
     
     def close(self): # implement close method used by controller
         self.Form.close()
@@ -50,13 +50,14 @@ class BrowsePage(QtCore.QObject):
         self.label.setText(_translate("Form", "Here goes a picture "))
 
     def OpenBrowseFile(self):
-        ImageFileName = FileService.openFileNameDialog(self.Form, self.Form, "")
+        ImageFileName = FileService.openFileNameDialog(self.Form, self.Form)
         if (ImageFileName != None or ImageFileName != ""):
             file = FileService.openFileContent(self, ImageFileName)
         else:
             #handle no file warning 
             return
         self.ImageData = file.read()
+        self.ImageName = ImageFileName
         self.EmitSwitch(self.ImageData)
 
 

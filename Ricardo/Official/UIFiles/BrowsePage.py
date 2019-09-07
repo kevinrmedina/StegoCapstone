@@ -8,7 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import fileservice
+from fileservice import FileService
 
 
 class BrowsePage(QtCore.QObject):
@@ -24,7 +24,7 @@ class BrowsePage(QtCore.QObject):
         self.Form.show()
 
     def EmitSwitch(self, imageData): # implement event that will emit the switch window signal 
-        self.switch_window.emit()
+        self.switch_window.emit(imageData)
     
     def close(self): # implement close method used by controller
         self.Form.close()
@@ -50,14 +50,14 @@ class BrowsePage(QtCore.QObject):
         self.label.setText(_translate("Form", "Here goes a picture "))
 
     def OpenBrowseFile(self):
-        ImageFileName = FileService.openFileNameDialog(self.Form, self.Form)
+        ImageFileName = FileService.openFileNameDialog(self.Form, self.Form, "")
         if (ImageFileName != None or ImageFileName != ""):
             file = FileService.openFileContent(self, ImageFileName)
         else:
             #handle no file warning 
             return
         self.ImageData = file.read()
-        EmitSwitch(self.ImageData)
+        self.EmitSwitch(self.ImageData)
 
 
 # if __name__ == "__main__":

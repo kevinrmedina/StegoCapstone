@@ -1,11 +1,13 @@
 import sys
-from PyQt5 import QtCore, QtWidgets
+from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtWidgets import QDesktopWidget
 from PyQt5.QtGui import QPixmap
 from fileservice import FileService
 from UIFiles.HomePage import HomePage
 from UIFiles.BrowsePage import BrowsePage
 from UIFiles.EncodeDecodePage import EncodeDecodePage
+from UIFiles.ChooseCarrierType import ChooseCarrierTypePage
+from UIFiles.Translation import TanslationPage
 
 WINDOWWIDTH = 800
 WINDOWHEIGHT = 600
@@ -187,11 +189,17 @@ class Controller:
         self.browsepage.show()
     
     def ShowDecodeEncodePage(self, imageData):
+        print(imageData)
         self.deencodepage = EncodeDecodePage(imageData)
-        #self.deencodepage.switch_window.connect(self.ShowText)
+        self.deencodepage.switch_window.connect(self.ShowChooseCarrierTypePage)
         self.browsepage.close()
         self.deencodepage.show()
 
+    def ShowChooseCarrierTypePage(self, imageData, config):
+        self.choosecarrier = ChooseCarrierTypePage(imageData, config)
+        self.choosecarrier.switch_window.connect(self.ShowChooseCarrierTypePage)
+        self.deencodepage.close()
+        self.choosecarrier.show()
 
     def show_main(self):
         self.window = MainWindow()
@@ -204,12 +212,28 @@ class Controller:
         self.window.close()
         self.window_two.show()
 
-        
+    def OpenTranslationPane():
+        self.translation = TranslationPage()
+        self.translation.show()
+
+
+
 
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
     controller = Controller()
+    # Add Main Window for 
+    # extractAction = QtWidgets.QAction("Open Translation Pane", self)
+    #     extractAction.setShortcut("Ctrl+Q")
+    #     extractAction.setStatusTip('Leave The App')
+    #     #extractAction.triggered.connect(controller.OpenTranslationPane)
+        
+    #     mainMenu = self.menuBar()
+    #     fileMenu = mainMenu.addMenu('&File')
+    #     fileMenu.addAction(extractAction)
+    #     self.show()
+    # self.setCentralWidget(self.Form)
     controller.show_home()
     sys.exit(app.exec_())
 

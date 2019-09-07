@@ -8,7 +8,7 @@ class FileService:
     def openFileNameDialog(self, widget):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        fileName, _ = QFileDialog.getOpenFileName(widget,"QFileDialog.getOpenFileName()", "","All Files (*);;Python Files (*.py)", options=options)
+        fileName, _ = QFileDialog.getOpenFileName(widget,"QFileDialog.getOpenFileName()", "","*.png", options=options)
         if fileName:
             print(fileName)
         return fileName
@@ -16,7 +16,7 @@ class FileService:
     def openFileNamesDialog(self, widget):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
-        files, _ = QFileDialog.getOpenFileNames(widget,"QFileDialog.getOpenFileNames()", "","All Files (*);;Python Files (*.py)", options=options)
+        files, _ = QFileDialog.getOpenFileNames(widget,"QFileDialog.getOpenFileNames()", "","*.png", options=options)
         if files:
             print(files)
     

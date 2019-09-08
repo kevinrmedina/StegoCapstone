@@ -56,14 +56,17 @@ class ChooseCarrierTypePage(QtCore.QObject):
         self.checkBox = QtWidgets.QCheckBox(self.verticalLayoutWidget)
         self.checkBox.setObjectName("checkBox")
         self.verticalLayout_4.addWidget(self.checkBox)
+        self.checkBox.clicked.connect(self.checkBoxClicked)
         self.comboBox_3 = QtWidgets.QComboBox(self.verticalLayoutWidget)
         self.comboBox_3.setObjectName("comboBox_3")
         self.verticalLayout_4.addWidget(self.comboBox_3)
+        self.comboBox_3.setEnabled(False)
         self.verticalLayout.addLayout(self.verticalLayout_4)
         self.plainTextEdit = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
         self.plainTextEdit.setMaximumSize(QtCore.QSize(16777215, 45))
         self.plainTextEdit.setObjectName("plainTextEdit")
         self.verticalLayout.addWidget(self.plainTextEdit)
+        self.plainTextEdit.setEnabled(False)
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(388, 80, 221, 271))
         # self.label.setText("")
@@ -113,7 +116,10 @@ class ChooseCarrierTypePage(QtCore.QObject):
         self.pushButton.setText(_translate("Form", "Next"))
         self.ActionLabel.setText(_translate("Form", self.Config))
 
-
-
-
-
+    def checkBoxClicked(self):
+        if (self.checkBox.isChecked()):
+            self.comboBox_3.setEnabled(True)
+            self.plainTextEdit.setEnabled(True)
+        else:
+            self.comboBox_3.setEnabled(False)
+            self.plainTextEdit.setEnabled(False)

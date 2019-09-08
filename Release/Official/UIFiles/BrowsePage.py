@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 
 
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from fileservice import FileService
 
 
@@ -47,7 +47,10 @@ class BrowsePage(QtCore.QObject):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
         self.pushButton.setText(_translate("Form", "Browse File"))
-        self.label.setText(_translate("Form", "Here goes a picture "))
+        self.label.setText(_translate("Form", "Here goes a picture"))
+       ### This is supposed to work. But it's not. Apparently setPixMap is not
+       ### an attribute of QLabel, but it is.
+       #self.label.setPixMap(QtGui.QPixmap("logo.jpeg"))
 
     def OpenBrowseFile(self):
         ImageFileName = FileService.openFileNameDialog(self.Form, self.Form)

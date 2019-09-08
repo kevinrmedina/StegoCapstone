@@ -8,20 +8,20 @@ def encodeFile(cF, pF, nF):
     payload = open(pf, "rb").read()
     result = carrier.encode_binary(payload)
     cv2.imwrite(nF, result)
-    return;
+    #return;
 
 def decodeFile(cF, nF):
     carrier = LSBSteg(cv2.imread(cF))
     binaryExtract = carrier.decode_binary()
     newFile = open(nF, "wb")
     newFile.write(binaryExtract)
-    return;
+    #return;
 
 def encodeText(cF, nF, text):
     carrier = LSBSteg(cv2.imread(cF))
     newFile = carrier.encode_text(text)
     cv2.imwrite(nF, newFile)
-    return;
+    #return;
 
 def decodeText(cF):
     carrier = cv2.imread(cF)

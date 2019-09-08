@@ -26,8 +26,8 @@ class TextPayloadPage(QtCore.QObject):
 
     def EmitSwitch(self): # implement event that will emit the switch window signal 
         #Steg STUUUUUUUFFF
-        #subprocess.Popen(["python", "stegScript.py", "-e", "-t", self.carrierDir, self.carrierDir + ".stegged", self.plainTextEdit.toPlainText()])
-        subprocess.Popen(["python", "stegScript.py", "-h"])
+        subprocess.Popen(["python", "./UIFiles/stegScript.py", "-e", "-t", self.carrierDir, self.carrierDir + ".stegged", self.plainTextEdit.toPlainText()])
+        #subprocess.Popen(["python", "./UIFiles/stegScript.py", "-h"])
         # steg = LSBSteg(plt.imread(self.carrierDir))
         # print("Image Read")
         # carrier_encoded = steg.encode_text(self.plainTextEdit.toPlainText())
@@ -85,5 +85,5 @@ class TextPayloadPage(QtCore.QObject):
         Form.setWindowTitle(_translate("Form", "Form"))
         self.pushButton_3.setText(_translate("Form", "Prev"))
         self.pushButton_4.setText(_translate("Form", "Next"))
-        self.plainTextEdit.setPlainText(_translate("Form", "This is some text we found on the mario picture This is some text we found on the mario picture This is some text we found on the mario picture This is some text we found on the mario picture This is some text we found on the mario picture This is some text we found on the mario picture This is some text we found on the mario picture This is some text we found on the mario picture This is some text we found on the mario picture This is some text we found on the mario picture This is some text we found on the mario picture This is some text we found on the mario picture This is some text we found on the mario picture This is some text we found on the mario picture This is some text we found on the mario picture \n"
+        self.plainTextEdit.setPlainText(_translate("Form", "Enter secret message here\n"
 ""))

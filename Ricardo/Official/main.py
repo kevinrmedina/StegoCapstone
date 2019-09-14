@@ -170,7 +170,8 @@ class Login(QtWidgets.QWidget):
 
 class Controller:
     
-    def __init__(self):
+    def __init__(self, MainWindow):
+        self.MainWindow = MainWindow
         pass
 
     def show_login(self):
@@ -181,11 +182,13 @@ class Controller:
 
     def show_home(self):
         self.home = HomePage()
+        self.MainWindow.setCentralWidget(self.home.Form)
         self.home.switch_window.connect(self.showBrowsePage)
         self.home.show()
 
     def showBrowsePage(self):
         self.browsepage = BrowsePage()
+        self.MainWindow.setCentralWidget(self.browsepage.Form)
         self.browsepage.switch_window.connect(self.ShowDecodeEncodePage)
         self.home.close()
         self.browsepage.show()
@@ -236,18 +239,21 @@ class Controller:
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
-    controller = Controller()
-    # Add Main Window for 
-    # extractAction = QtWidgets.QAction("Open Translation Pane", self)
-    #     extractAction.setShortcut("Ctrl+Q")
-    #     extractAction.setStatusTip('Leave The App')
-    #     #extractAction.triggered.connect(controller.OpenTranslationPane)
-        
-    #     mainMenu = self.menuBar()
-    #     fileMenu = mainMenu.addMenu('&File')
-    #     fileMenu.addAction(extractAction)
-    #     self.show()
-    # self.setCentralWidget(self.Form)
+    
+    MainWindow = QtWidgets.QMainWindow()
+    controller = Controller(MainWindow)
+    #Add Main Window for 
+    extractAction = QtWidgets.QAction("Open Translation Pane", MainWindow)
+    extractAction.setShortcut("Ctrl+Q")
+    extractAction.setStatusTip('Leave The App')
+    extractAction.triggered.connect(controller.OpenTranslationPane)
+    
+    mainMenu = MainWindow.menuBar()
+    fileMenu = mainMenu.addMenu('&File')
+    fileMenu.addAction(extractAction)
+    MainWindow.show()
+    MainWindow.resize(640, 500)
+    #MainWindow.setCentralWidget(self.Form)
     controller.show_home()
     sys.exit(app.exec_())
 

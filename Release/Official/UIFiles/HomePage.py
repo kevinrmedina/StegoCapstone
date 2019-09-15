@@ -37,7 +37,8 @@ class HomePage(QtCore.QObject):   # inherit class from QObject rather than objec
     
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(658, 478)
+        #Form.resize(658, 478)
+        Form.setFixedSize(750, 550)
         self.label = QtWidgets.QLabel(Form)
         self.label.setGeometry(QtCore.QRect(18, 20, 631, 20))
         self.label.setAlignment(QtCore.Qt.AlignCenter)

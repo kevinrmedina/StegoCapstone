@@ -10,6 +10,7 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import os 
 import subprocess
+import re
 
 class TextPayloadPage(QtCore.QObject):
     switch_window = QtCore.pyqtSignal(object, object, object)  # Add switch_window signal for controller to use to switch layouts
@@ -26,7 +27,10 @@ class TextPayloadPage(QtCore.QObject):
 
     def EmitSwitch(self): # implement event that will emit the switch window signal 
         #Steg STUUUUUUUFFF
-        subprocess.Popen(["python", "./UIFiles/stegScript.py", "-e", "-t", self.carrierDir, self.carrierDir + ".stegged", self.plainTextEdit.toPlainText()])
+        carrierWithPayload = re.sub(r'\.png', 'STEGGED.png', self.carrierDir)
+        stegCommand = "python ./UIFiles/stegScript.py -e -t " + self.carrierDir + " " + carrierWithPayload + " " + self.plainTextEdit.toPlainText() 
+        subprocess.Popen(stegCommand.split(), stdout=subprocess.PIPE)
+        #output, error = process.communicate()
         #subprocess.Popen(["python", "./UIFiles/stegScript.py", "-h"])
         # steg = LSBSteg(plt.imread(self.carrierDir))
         # print("Image Read")
@@ -42,7 +46,8 @@ class TextPayloadPage(QtCore.QObject):
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(638, 496)
+        #Form.resize(638, 496)
+        Form.setFixedSize(750, 550)
         self.horizontalLayoutWidget_2 = QtWidgets.QWidget(Form)
         self.horizontalLayoutWidget_2.setGeometry(QtCore.QRect(390, 400, 221, 80))
         self.horizontalLayoutWidget_2.setObjectName("horizontalLayoutWidget_2")

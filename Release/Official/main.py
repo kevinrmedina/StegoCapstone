@@ -170,7 +170,8 @@ class Login(QtWidgets.QWidget):
 
 class Controller:
     
-    def __init__(self):
+    def __init__(self, MainWindow):
+        self.MainWindow = MainWindow
         pass
 
     def show_login(self):
@@ -181,29 +182,38 @@ class Controller:
 
     def show_home(self):
         self.home = HomePage()
+        self.MainWindow.setCentralWidget(self.home.Form)
         self.home.switch_window.connect(self.showBrowsePage)
         self.home.show()
 
     def showBrowsePage(self):
         self.browsepage = BrowsePage()
+        self.MainWindow.setCentralWidget(self.browsepage.Form)
         self.browsepage.switch_window.connect(self.ShowDecodeEncodePage)
         self.home.close()
         self.browsepage.show()
     
     def ShowDecodeEncodePage(self, imageData, ImageDir):
         self.deencodepage = EncodeDecodePage(imageData, ImageDir)
+        self.MainWindow.setCentralWidget(self.deencodepage.Form)
         self.deencodepage.switch_window.connect(self.ShowChoosePayloadTypePage)
         self.browsepage.close()
         self.deencodepage.show()
 
     def ShowChoosePayloadTypePage(self, imageData, config, ImageDir):
         self.choosecarrier = ChooseCarrierTypePage(imageData, config, ImageDir)
+<<<<<<< HEAD
         self.choosecarrier.switch_window.connect(self.ShowTextPayloadPage)
+=======
+        self.MainWindow.setCentralWidget(self.choosecarrier.Form)
+        self.choosecarrier.switch_window.connect(self.ChoosePayloadTypeNextButton)
+>>>>>>> 0413f3f3fd41633e7f0ef60b01e4212ce2d1b249
         self.deencodepage.close()
         self.choosecarrier.show()
     
     def ChoosePayloadTypeNextButton(self, imageData, config, CarrierDir):
         self.encryption = EncryptionPage(imageData, config, CarrierDir)
+        self.MainWindow.setCentralWidget(self.encryption.Form)
         self.encryption.switch_window.connect(self.ShowTextPayloadPage)
         self.choosecarrier.close()
         self.encryption.show()
@@ -211,6 +221,7 @@ class Controller:
 
     def ShowTextPayloadPage(self, imageData, config, CarrierDir):
         self.textpayload = TextPayloadPage(imageData, config, CarrierDir)
+        self.MainWindow.setCentralWidget(self.textpayload.Form)
         self.textpayload.show()
         #self.encryption.close()
         self.choosecarrier.close()
@@ -236,18 +247,20 @@ class Controller:
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
-    controller = Controller()
-    # Add Main Window for 
-    # extractAction = QtWidgets.QAction("Open Translation Pane", self)
-    #     extractAction.setShortcut("Ctrl+Q")
-    #     extractAction.setStatusTip('Leave The App')
-    #     #extractAction.triggered.connect(controller.OpenTranslationPane)
-        
-    #     mainMenu = self.menuBar()
-    #     fileMenu = mainMenu.addMenu('&File')
-    #     fileMenu.addAction(extractAction)
-    #     self.show()
-    # self.setCentralWidget(self.Form)
+    
+    MainWindow = QtWidgets.QMainWindow()
+    controller = Controller(MainWindow)
+    #Menu option called Open Translation Pane to 'File' menu
+    extractAction = QtWidgets.QAction("Open Translation Pane", MainWindow)
+    extractAction.setShortcut("Ctrl+Q")
+    extractAction.setStatusTip('Leave The App')
+    extractAction.triggered.connect(controller.OpenTranslationPane)
+    mainMenu = MainWindow.menuBar()
+    fileMenu = mainMenu.addMenu('&File')
+    fileMenu.addAction(extractAction)
+    MainWindow.show()
+    MainWindow.resize(640, 500)
+    #MainWindow.setCentralWidget(self.Form)
     controller.show_home()
     sys.exit(app.exec_())
 

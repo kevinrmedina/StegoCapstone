@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# coding:UTF-8
 """LSBSteg.py
 
 Usage:
@@ -165,8 +167,6 @@ class LSBSteg():
         for i in range(l):
             output += chr(int(self.read_byte(),2))#.encode("utf-8")
         return output
-    def printSomething():
-        print("Something")
 
 
 def main():

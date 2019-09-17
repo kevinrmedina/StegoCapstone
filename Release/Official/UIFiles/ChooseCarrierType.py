@@ -31,7 +31,8 @@ class ChooseCarrierTypePage(QtCore.QObject):
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(639, 550)
+        #Form.resize(639, 550)
+        Form.setFixedSize(750, 550)
         self.verticalLayoutWidget = QtWidgets.QWidget(Form)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(30, 100, 201, 272))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")

@@ -67,4 +67,5 @@ def main():
     elif sys.argv[1] == '-h':
         help()
 
-main()
+if __name__ == '__main__':
+    main()

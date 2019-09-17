@@ -30,7 +30,8 @@ class TanslationPage(QtCore.QObject):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.setEnabled(True)
-        Dialog.resize(762, 567)
+        #Dialog.resize(762, 567)
+        Dialog.setFixedSize(750, 550)
         self.gridLayout = QtWidgets.QGridLayout(Dialog)
         self.gridLayout.setObjectName("gridLayout")
         self.languageKeyComboBox = QtWidgets.QComboBox(Dialog)

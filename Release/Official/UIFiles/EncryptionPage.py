@@ -31,7 +31,8 @@ class EncryptionPage(QtCore.QObject):
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(639, 550)
+        #Form.resize(639, 550)
+        Form.setFixedSize(750, 550)
         self.verticalLayout = QtWidgets.QVBoxLayout(Form)
         self.verticalLayout.setObjectName("verticalLayout")
         self.label = QtWidgets.QLabel(Form)

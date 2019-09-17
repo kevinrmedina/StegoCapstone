@@ -40,7 +40,8 @@ class EncodeDecodePage(QtCore.QObject):
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(638, 495)
+        #Form.resize(638, 495)
+        Form.setFixedSize(750, 550)
         self.verticalLayoutWidget = QtWidgets.QWidget(Form)
         self.verticalLayoutWidget.setGeometry(QtCore.QRect(40, 80, 111, 291))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")

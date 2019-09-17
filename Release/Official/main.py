@@ -8,7 +8,7 @@ from UIFiles.BrowsePage import BrowsePage
 from UIFiles.EncodeDecodePage import EncodeDecodePage
 from UIFiles.ChooseCarrierType import ChooseCarrierTypePage
 from UIFiles.Translation import TanslationPage
-from UIFiles.EncryptionPage import EncryptionPage
+#from UIFiles.EncryptionPage import EncryptionPage
 from UIFiles.TextPayloadPage import TextPayloadPage
 
 WINDOWWIDTH = 800
@@ -203,8 +203,12 @@ class Controller:
 
     def ShowChoosePayloadTypePage(self, imageData, config, ImageDir):
         self.choosecarrier = ChooseCarrierTypePage(imageData, config, ImageDir)
-        self.MainWindow.setCentralWidget(self.choosecarrier.Form)
-        self.choosecarrier.switch_window.connect(self.ChoosePayloadTypeNextButton)
+#<<<<<<< HEAD
+        self.choosecarrier.switch_window.connect(self.ShowTextPayloadPage)
+#=======
+        #self.MainWindow.setCentralWidget(self.choosecarrier.Form)
+        #self.choosecarrier.switch_window.connect(self.ChoosePayloadTypeNextButton)
+#>>>>>>> 0413f3f3fd41633e7f0ef60b01e4212ce2d1b249
         self.deencodepage.close()
         self.choosecarrier.show()
     
@@ -220,7 +224,8 @@ class Controller:
         self.textpayload = TextPayloadPage(imageData, config, CarrierDir)
         self.MainWindow.setCentralWidget(self.textpayload.Form)
         self.textpayload.show()
-        self.encryption.close()
+        #self.encryption.close()
+        self.choosecarrier.close()
 
     def show_main(self):
         self.window = MainWindow()

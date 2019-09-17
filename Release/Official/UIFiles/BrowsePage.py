@@ -31,7 +31,8 @@ class BrowsePage(QtCore.QObject):
 
     def setupUi(self, Form):
         Form.setObjectName("Form")
-        Form.resize(576, 448)
+        #Form.resize(576, 448)
+        Form.setFixedSize(750, 550)
         self.pushButton = QtWidgets.QPushButton(Form)
         self.pushButton.setGeometry(QtCore.QRect(230, 300, 89, 27))
         self.pushButton.setObjectName("pushButton")

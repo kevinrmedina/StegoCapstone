@@ -12,6 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class EncodeDecodePage(QtCore.QObject):
     switch_window = QtCore.pyqtSignal(object, object, object)  # Add switch_window signal for controller to use to switch layouts
+    previous_clicked = QtCore.pyqtSignal()
     def __init__(self, ImageData, ImageDir):
         QtCore.QObject.__init__(self) # call init from parent class
         self.imagedata = ImageData
@@ -30,6 +31,9 @@ class EncodeDecodePage(QtCore.QObject):
         else:
             config = "Decode"
         self.switch_window.emit(self.imagedata, config, self.imagedir)
+    
+    def PreviousButtonClicked(self):
+        self.previous_clicked.emit()
     
     def close(self): # implement close method used by controller
         self.Form.close()
@@ -81,6 +85,7 @@ class EncodeDecodePage(QtCore.QObject):
         self.pushButton_2.setMinimumSize(QtCore.QSize(0, 50))
         self.pushButton_2.setObjectName("pushButton_2")
         self.horizontalLayout.addWidget(self.pushButton_2)
+        self.pushButton_2.clicked.connect(self.PreviousButtonClicked)
         self.pushButton = QtWidgets.QPushButton(self.horizontalLayoutWidget)
         self.pushButton.setMinimumSize(QtCore.QSize(0, 50))
         self.pushButton.setObjectName("pushButton")

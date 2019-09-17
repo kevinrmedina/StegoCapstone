@@ -202,12 +202,12 @@ class Controller:
 
     def ShowChoosePayloadTypePage(self, imageData, config, ImageDir):
         self.choosecarrier = ChooseCarrierTypePage(imageData, config, ImageDir)
-<<<<<<< HEAD
+#<<<<<<< HEAD
         self.choosecarrier.switch_window.connect(self.ShowTextPayloadPage)
-=======
-        self.MainWindow.setCentralWidget(self.choosecarrier.Form)
-        self.choosecarrier.switch_window.connect(self.ChoosePayloadTypeNextButton)
->>>>>>> 0413f3f3fd41633e7f0ef60b01e4212ce2d1b249
+#=======
+        #self.MainWindow.setCentralWidget(self.choosecarrier.Form)
+        #self.choosecarrier.switch_window.connect(self.ChoosePayloadTypeNextButton)
+#>>>>>>> 0413f3f3fd41633e7f0ef60b01e4212ce2d1b249
         self.deencodepage.close()
         self.choosecarrier.show()
     

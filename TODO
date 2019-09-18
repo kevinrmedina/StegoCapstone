@@ -49,3 +49,4 @@ TODO Software:
 - If image is too large, display loading animation - in progress
 - Code Refactoring (ImageDir, config)
 - Message dialog and get input from dialog
+- Falta EncodeText 

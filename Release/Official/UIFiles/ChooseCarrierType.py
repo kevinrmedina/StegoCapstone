@@ -11,7 +11,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class ChooseCarrierTypePage(QtCore.QObject):
 
-    switch_window = QtCore.pyqtSignal(object, object, object)  # Add switch_window signal for controller to use to switch layouts
+    show_encode_image = QtCore.pyqtSignal(object, object, object)  # Add switch_window signal for controller to use to switch layouts
+    switch_previous = QtCore.pyqtSignal(object, object, object)  # Add switch_window signal for controller to use to switch layouts
+    show_encode_text = QtCore.pyqtSignal(object, object, object)
+    show_decode_text = QtCore.pyqtSignal(object, object, object)
+    show_decode_image = QtCore.pyqtSignal(object, object, object)
     def __init__(self, imageData, config, CarrierDir):
         QtCore.QObject.__init__(self) # call init from parent class
         self.Form = QtWidgets.QWidget() # initialize widget (this is what Qt shows)
@@ -23,8 +27,20 @@ class ChooseCarrierTypePage(QtCore.QObject):
     def show(self): # implement show method for controller to use 
         self.Form.show()
 
-    def EmitSwitch(self): # implement event that will emit the switch window signal 
-        self.switch_window.emit(self.imagedata, self.Config, self.carrierDir)
+    def EmitSwitchNext(self): # implement event that will emit the switch window signal 
+        if (self.Config == "Encode"):
+            if (self.radioButton_2.isChecked()):
+                self.show_encode_image.emit(self.imagedata, self.Config, self.carrierDir)
+            else:
+                self.show_decode_image.emit(self.imagedata, self.Config, self.carrierDir)
+        else:
+            if (self.radioButton_2.isChecked()):
+                self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir)
+            else:
+                self.show_encode_text.emit(self.imagedata, self.Config, self.carrierDir)
+    
+    def EmitSwitchPrevious(self): # implement event that will emit the switch window signal 
+        self.switch_previous.emit(self.imagedata, self.Config, self.carrierDir)
     
     def close(self): # implement close method used by controller
         self.Form.close()
@@ -94,10 +110,11 @@ class ChooseCarrierTypePage(QtCore.QObject):
         self.pushButton_2.setObjectName("pushButton_2")
         self.horizontalLayout.addWidget(self.pushButton_2)
         self.pushButton = QtWidgets.QPushButton(self.horizontalLayoutWidget)
+        self.pushButton_2.clicked.connect(self.EmitSwitchPrevious)
         self.pushButton.setMinimumSize(QtCore.QSize(0, 50))
         self.pushButton.setObjectName("pushButton")
         self.horizontalLayout.addWidget(self.pushButton)
-        self.pushButton.clicked.connect(self.EmitSwitch)
+        self.pushButton.clicked.connect(self.EmitSwitchNext)
         self.ActionLabel = QtWidgets.QLabel(Form)
         self.ActionLabel.setGeometry(QtCore.QRect(20, 20, 611, 20))
         self.ActionLabel.setAlignment(QtCore.Qt.AlignCenter)

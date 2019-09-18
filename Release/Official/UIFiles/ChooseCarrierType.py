@@ -11,11 +11,11 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 class ChooseCarrierTypePage(QtCore.QObject):
 
-    show_encode_image = QtCore.pyqtSignal(object, object, object)  # Add switch_window signal for controller to use to switch layouts
+    show_encode_file = QtCore.pyqtSignal(object, object, object)  # Add switch_window signal for controller to use to switch layouts
     switch_previous = QtCore.pyqtSignal(object, object, object)  # Add switch_window signal for controller to use to switch layouts
     show_encode_text = QtCore.pyqtSignal(object, object, object)
     show_decode_text = QtCore.pyqtSignal(object, object, object)
-    show_decode_image = QtCore.pyqtSignal(object, object, object)
+    show_decode_file = QtCore.pyqtSignal(object, object, object)
     def __init__(self, imageData, config, CarrierDir):
         QtCore.QObject.__init__(self) # call init from parent class
         self.Form = QtWidgets.QWidget() # initialize widget (this is what Qt shows)
@@ -30,14 +30,15 @@ class ChooseCarrierTypePage(QtCore.QObject):
     def EmitSwitchNext(self): # implement event that will emit the switch window signal 
         if (self.Config == "Encode"):
             if (self.radioButton_2.isChecked()):
-                self.show_encode_image.emit(self.imagedata, self.Config, self.carrierDir)
-            else:
-                self.show_decode_image.emit(self.imagedata, self.Config, self.carrierDir)
-        else:
-            if (self.radioButton_2.isChecked()):
-                self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir)
+                #Show Browser to select payload and pass it to next page (pass payload directory)
+                self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir)
             else:
                 self.show_encode_text.emit(self.imagedata, self.Config, self.carrierDir)
+        else:
+            if (self.radioButton_2.isChecked()):
+                self.show_decode_file.emit(self.imagedata, self.Config, self.carrierDir)
+            else:
+                self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir)
     
     def EmitSwitchPrevious(self): # implement event that will emit the switch window signal 
         self.switch_previous.emit(self.imagedata, self.Config, self.carrierDir)

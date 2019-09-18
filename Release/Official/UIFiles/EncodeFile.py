@@ -1,5 +1,5 @@
 import sys
-import morseDecipher
+
 from PyQt5 import QtWidgets, uic, QtGui
 
 class EncodeFile(QtWidgets.QWidget):

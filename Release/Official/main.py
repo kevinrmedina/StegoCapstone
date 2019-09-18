@@ -13,6 +13,7 @@ from UIFiles.TextPayloadPage import TextPayloadPage
 from UIFiles.EncodeFile import EncodeFile
 from UIFiles.DecodeFile import DecodeFile
 from UIFiles.DecodeText import DecodeText
+from UIFiles.EncodeText import EncodeText
 
 
 WINDOWWIDTH = 800
@@ -207,9 +208,10 @@ class Controller:
 
     def ShowChoosePayloadTypePage(self, imageData, config, ImageDir):
         self.choosepayload = ChooseCarrierTypePage(imageData, config, ImageDir)
-        self.choosepayload.show_encode_image.connect(self.ShowEncodeFile)
-        self.choosepayload.show_decode_image.connect(self.ShowDecodeFile)
+        self.choosepayload.show_encode_file.connect(self.ShowEncodeFile)
+        self.choosepayload.show_decode_file.connect(self.ShowDecodeFile)
         self.choosepayload.show_decode_text.connect(self.ShowDecodeText)
+        self.choosepayload.show_encode_text.connect(self.ShowEncodeText)
         self.MainWindow.setCentralWidget(self.choosepayload.Form)
         self.deencodepage.close()
         self.choosepayload.show()
@@ -222,25 +224,25 @@ class Controller:
         self.choosepayload.close()
     
     def ShowEncodeFile(self, imageData, config, CarrierDir):
-        self.encodefile = EncodeFile()
+        self.encodefile = EncodeFile(imageData, config, CarrierDir)
         self.MainWindow.setCentralWidget(self.encodefile)
         self.encodefile.show()
         self.choosepayload.close()
      
     def ShowDecodeFile(self, imageData, config, CarrierDir):
-        self.decodefile = DecodeFile()
+        self.decodefile = DecodeFile(imageData, config, CarrierDir)
         self.MainWindow.setCentralWidget(self.decodefile)
         self.decodefile.show()
         self.choosepayload.close()
     
     def ShowEncodeText(self, imageData, config, CarrierDir):
-        self.encodefile = EncodeFile()
-        self.MainWindow.setCentralWidget(self.encodefile)
-        self.encodefile.show()
+        self.encodetext = EncodeText(imageData, config, CarrierDir)
+        self.MainWindow.setCentralWidget(self.encodetext)
+        self.encodetext.show()
         self.choosepayload.close()
      
     def ShowDecodeText(self, imageData, config, CarrierDir):
-        self.decodetext = DecodeText()
+        self.decodetext = DecodeText(imageData, config, CarrierDir)
         self.MainWindow.setCentralWidget(self.decodetext)
         self.decodetext.show()
         self.choosepayload.close()

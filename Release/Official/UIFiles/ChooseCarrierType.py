@@ -5,13 +5,13 @@
 # Created by: PyQt5 UI code generator 5.12.3
 #
 # WARNING! All changes made in this file will be lost!
-
+from fileservice import FileService 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
 class ChooseCarrierTypePage(QtCore.QObject):
 
-    show_encode_file = QtCore.pyqtSignal(object, object, object)  # Add switch_window signal for controller to use to switch layouts
+    show_encode_file = QtCore.pyqtSignal(object, object, object, object)  # Add switch_window signal for controller to use to switch layouts
     switch_previous = QtCore.pyqtSignal(object, object, object)  # Add switch_window signal for controller to use to switch layouts
     show_encode_text = QtCore.pyqtSignal(object, object, object)
     show_decode_text = QtCore.pyqtSignal(object, object, object)
@@ -31,7 +31,8 @@ class ChooseCarrierTypePage(QtCore.QObject):
         if (self.Config == "Encode"):
             if (self.radioButton_2.isChecked()):
                 #Show Browser to select payload and pass it to next page (pass payload directory)
-                self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir)
+                payloadDir = FileService.openFileNameDialog(self.Form, self.Form)
+                self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDir)
             else:
                 self.show_encode_text.emit(self.imagedata, self.Config, self.carrierDir)
         else:

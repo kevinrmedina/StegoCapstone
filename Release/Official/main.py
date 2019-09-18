@@ -223,8 +223,8 @@ class Controller:
         #self.encryption.close()
         self.choosepayload.close()
     
-    def ShowEncodeFile(self, imageData, config, CarrierDir):
-        self.encodefile = EncodeFile(imageData, config, CarrierDir)
+    def ShowEncodeFile(self, imageData, config, CarrierDir, payloadDir):
+        self.encodefile = EncodeFile(imageData, config, CarrierDir, payloadDir)
         self.MainWindow.setCentralWidget(self.encodefile)
         self.encodefile.show()
         self.choosepayload.close()

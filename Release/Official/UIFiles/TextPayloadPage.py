@@ -81,7 +81,6 @@ class TextPayloadPage(QtCore.QObject):
         self.plainTextEdit = QtWidgets.QPlainTextEdit(Form)
         self.plainTextEdit.setGeometry(QtCore.QRect(30, 90, 251, 261))
         self.plainTextEdit.setObjectName("plainTextEdit")
-
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
 
@@ -90,5 +89,4 @@ class TextPayloadPage(QtCore.QObject):
         Form.setWindowTitle(_translate("Form", "Form"))
         self.pushButton_3.setText(_translate("Form", "Prev"))
         self.pushButton_4.setText(_translate("Form", "Next"))
-        self.plainTextEdit.setPlainText(_translate("Form", "Enter secret message here\n"
-""))
+        self.plainTextEdit.setPlainText(_translate("Form", "Enter secret message here\n"""))

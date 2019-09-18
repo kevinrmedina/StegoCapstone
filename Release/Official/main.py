@@ -197,6 +197,7 @@ class Controller:
         self.deencodepage = EncodeDecodePage(imageData, ImageDir)
         self.MainWindow.setCentralWidget(self.deencodepage.Form)
         self.deencodepage.switch_window.connect(self.ShowChoosePayloadTypePage)
+        self.deencodepage.previous_clicked.connect(self.showBrowsePage)
         self.browsepage.close()
         self.deencodepage.show()
 

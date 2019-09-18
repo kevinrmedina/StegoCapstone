@@ -41,11 +41,11 @@ TODO Presentation:
 
 TODO Software: 
 - Validate chosen file is png (done) 
-- Implement Back buttons 
-- scrollable image (Scrollable area for image)
+- Implement Back buttons - in progress
+- scrollable image (Scrollable area for image) 
 - Encryption combo box disabled when encryption unchecked (done)
 - When Encryption text is focused, delte text 
-- Delete Encrypted file after steganography is done 
-- If image is too large, display loading animation
+- Delete Encrypted file after steganography (is done) 
+- If image is too large, display loading animation - in progress
 - Code Refactoring (ImageDir, config)
-- Message dialog
+- Message dialog and get input from dialog

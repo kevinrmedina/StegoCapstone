@@ -3,7 +3,6 @@
 import sys
 import morseDecipher
 from PyQt5 import QtWidgets, uic, QtGui
-from PyQt5.QtWidgets import * 
 
 class Ui(QtWidgets.QDialog):
     def __init__(self):

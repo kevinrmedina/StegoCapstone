@@ -1,12 +1,16 @@
 import sys
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
+import os
+import subprocess
+import re
 
 class EncodeText(QtWidgets.QWidget):
 
     show_Result = QtCore.pyqtSignal(object)
     def ShowResult(self):
-
-        ENCODEDIMAGERESULT = ""                    ####################### Encoded image result goes here, use self.EncodingString
+        newDir = re.sub(r'\.png', 'STEGGED.png', self.CarrierDir)
+        stegCommand = "python ./UIFiles/stegScript -e -t " + " " + self.CarrierDir + " " + newDir + " " + self.EncodingString
+        ENCODEDIMAGERESULT = newDir                    ####################### Encoded image result goes here, use self.EncodingString
         showResult.emit(ENCODEDIMAGERESULT)
         pass
 
@@ -23,5 +27,5 @@ class EncodeText(QtWidgets.QWidget):
         self.EncodingString = self.decodeTextArea.toPlainText()         ######### STRING thats going to be encoded ################
         
         self.pushButton_2 = self.findChild(QtWidgets.QAbstractButton, 'restartButton')
-        self.pushButton_2.setText("Restart")
+        self.pushButton_2.setText("Next")
         self.pushButton_2.clicked.connect(self.ShowResult)

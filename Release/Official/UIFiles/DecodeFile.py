@@ -1,5 +1,8 @@
 
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
+import os
+import subprocess
+import re
 
 class DecodeFile(QtWidgets.QWidget):
 
@@ -20,8 +23,10 @@ class DecodeFile(QtWidgets.QWidget):
         self.label.setAlignment(QtCore.Qt.AlignCenter)  # center image label
         self.label_2 = self.findChild(QtWidgets.QLabel, 'label_2')
         pixmap = QtGui.QPixmap()
-
-        payloaddata = ""                                ######### data of decoded image needs to go here 
+        newDir = "recoveredFile" 
+        stegCommand = "python ./UIFiles/stegScript.py -d -f " + self.CarrierDir + " " + newDir
+        subprocess.Popen(stegCommand.split(), stdout=subprocess.PIPE)
+        payloaddata = newDir                                ######### data of decoded image needs to go here 
         pixmap.loadFromData(payloaddata)
         self.label_2.setPixmap(pixmap)
         self.label_2.resize(pixmap.width(), pixmap.height())

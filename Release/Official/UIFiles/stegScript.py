@@ -31,19 +31,19 @@ def decodeText(cF):
 
 #Add more to help print out
 def help():
-    print """
+    print("""
     Script options:
     -e: Encode
     -d: Decode
     -t: Text
     -f: File
     Examples:
-        Encode Text - "python ./stegScript.py -e -t CarrierDir NewDir
-        TextPayload"
-        Decode Text - "python ./stegScript.py -d -t CarrierDir" 
-        Encode File - "python ./stegScript.py -e -f CarrierDir PayloadDir NewDir"
-        Decode File - "python ./stegScript.py -d -f CarrierDir NewDir"
-    """
+        Encode Text - python ./stegScript.py -e -t CarrierDir NewDir
+        TextPayload
+        Decode Text - python ./stegScript.py -d -t CarrierDir 
+        Encode File - python ./stegScript.py -e -f CarrierDir PayloadDir NewDir
+        Decode File - python ./stegScript.py -d -f CarrierDir NewDir
+    """)
 def main():
 #If first argument is zero then it's encoding
     if (sys.argv[1]) == '-e':

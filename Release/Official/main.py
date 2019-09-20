@@ -6,7 +6,7 @@ from fileservice import FileService
 from UIFiles.HomePage import HomePage
 from UIFiles.BrowsePage import BrowsePage
 from UIFiles.EncodeDecodePage import EncodeDecodePage
-from UIFiles.ChooseCarrierType import ChooseCarrierTypePage
+from UIFiles.ChoosePayloadType import ChoosePayloadTypePage
 from UIFiles.Translation import TanslationPage
 #from UIFiles.EncryptionPage import EncryptionPage
 from UIFiles.TextPayloadPage import TextPayloadPage
@@ -14,6 +14,7 @@ from UIFiles.EncodeFile import EncodeFile
 from UIFiles.DecodeFile import DecodeFile
 from UIFiles.DecodeText import DecodeText
 from UIFiles.EncodeText import EncodeText
+from UIFiles.ResultScreen import ResultScreen
 
 
 WINDOWWIDTH = 800
@@ -207,7 +208,7 @@ class Controller:
         self.deencodepage.show()
 
     def ShowChoosePayloadTypePage(self, imageData, config, ImageDir):
-        self.choosepayload = ChooseCarrierTypePage(imageData, config, ImageDir)
+        self.choosepayload = ChoosePayloadTypePage(imageData, config, ImageDir)
         self.choosepayload.show_encode_file.connect(self.ShowEncodeFile)
         self.choosepayload.show_decode_file.connect(self.ShowDecodeFile)
         self.choosepayload.show_decode_text.connect(self.ShowDecodeText)
@@ -223,7 +224,7 @@ class Controller:
         #self.encryption.close()
         self.choosepayload.close()
     
-    def ShowEncodeFile(self, imageData, config, CarrierDir, payloadDir):
+    def ShowEncodeFile(self, imageData, config, CarrierDir, payloadDir):      
         self.encodefile = EncodeFile(imageData, config, CarrierDir, payloadDir)
         self.MainWindow.setCentralWidget(self.encodefile)
         self.encodefile.show()
@@ -237,10 +238,28 @@ class Controller:
     
     def ShowEncodeText(self, imageData, config, CarrierDir):
         self.encodetext = EncodeText(imageData, config, CarrierDir)
+        self.encodetext.show_Result.connect(self.ShowResult)
         self.MainWindow.setCentralWidget(self.encodetext)
         self.encodetext.show()
         self.choosepayload.close()
-     
+    
+    def ShowResult(self, EncodedImageResultDir, imageData, CarrierDir, config, lastPage, payloadDir=None):
+        self.resultscreen = ResultScreen(EncodedImageResultDir, imageData, CarrierDir, config, lastPage, payloadDir)
+        self.resultscreen.switch_mainmenu.connect(self.show_home)
+        self.resultscreen.switch_previous.connect(self.ResultGoBack)
+        self.MainWindow.setCentralWidget(self.resultscreen)
+        self.resultscreen.show()
+
+    def ResultGoBack(self, imageData, config, CarrierDir, lastPage, payloadDir):
+        if (lastPage == 1):
+            ShowEncodeFile(imageData, config, CarrierDir, payloadDir)
+        elif (lastPage == 2):
+            ShowDecodeFile(imageData, config, CarrierDir)
+        elif (lastPage == 3):
+            ShowEncodeText(imageData, config, CarrierDir)
+        elif (lastPage == 4):
+            ShowDecodeText(imageData, config, CarrierDir)
+
     def ShowDecodeText(self, imageData, config, CarrierDir):
         self.decodetext = DecodeText(imageData, config, CarrierDir)
         self.MainWindow.setCentralWidget(self.decodetext)

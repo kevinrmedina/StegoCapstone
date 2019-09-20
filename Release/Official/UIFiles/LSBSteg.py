@@ -13,8 +13,16 @@ Options:
   -i,--in=<input>           Input image (carrier)
   -o,--out=<output>         Output image (or extracted file)
 """
+##TODO write try catch block in case path deletion fails
+import sys
+ros_path = '/opt/ros/kinetic/lib/python2.7/dist-packages'
 
-import cv2
+if ros_path in sys.path:
+    sys.path.remove(ros_path)
+
+import cv2           
+sys.path.append('/opt/ros/kinetic/lib/python2.7/dist-packages')
+
 import docopt
 import numpy as np
 

@@ -9,7 +9,7 @@ from fileservice import FileService
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 
-class ChooseCarrierTypePage(QtCore.QObject):
+class ChoosePayloadTypePage(QtCore.QObject):
 
     show_encode_file = QtCore.pyqtSignal(object, object, object, object)  # Add switch_window signal for controller to use to switch layouts
     switch_previous = QtCore.pyqtSignal(object, object, object)  # Add switch_window signal for controller to use to switch layouts

@@ -1,5 +1,5 @@
 import sys
-from PyQt5 import QtWidgets, uic, QtGui
+from PyQt5 import QtWidgets, uic, QtGui, QtCore
 import os
 import subprocess
 import re

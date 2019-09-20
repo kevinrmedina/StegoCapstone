@@ -26,7 +26,7 @@
     <string>Previous</string>
    </property>
   </widget>
-  <widget class="QTextEdit" name="decodeTextArea">
+  <widget class="QTextEdit" name="encodeTextArea">
    <property name="geometry">
     <rect>
      <x>10</x>
@@ -55,7 +55,7 @@
     </item>
    </layout>
   </widget>
-  <widget class="QPushButton" name="restartButton">
+  <widget class="QPushButton" name="nextButton">
    <property name="geometry">
     <rect>
      <x>560</x>
@@ -65,7 +65,7 @@
     </rect>
    </property>
    <property name="text">
-    <string>Restart</string>
+    <string>Next</string>
    </property>
   </widget>
  </widget>

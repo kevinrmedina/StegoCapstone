@@ -12,7 +12,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class ChoosePayloadTypePage(QtCore.QObject):
 
     show_encode_file = QtCore.pyqtSignal(object, object, object, object)  # Add switch_window signal for controller to use to switch layouts
-    switch_previous = QtCore.pyqtSignal(object, object, object)  # Add switch_window signal for controller to use to switch layouts
+    switch_previous = QtCore.pyqtSignal(object, object)  # Add switch_window signal for controller to use to switch layouts
     show_encode_text = QtCore.pyqtSignal(object, object, object)
     show_decode_text = QtCore.pyqtSignal(object, object, object)
     show_decode_file = QtCore.pyqtSignal(object, object, object)
@@ -42,7 +42,7 @@ class ChoosePayloadTypePage(QtCore.QObject):
                 self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir)
     
     def EmitSwitchPrevious(self): # implement event that will emit the switch window signal 
-        self.switch_previous.emit(self.imagedata, self.Config, self.carrierDir)
+        self.switch_previous.emit(self.imagedata, self.carrierDir)
     
     def close(self): # implement close method used by controller
         self.Form.close()
@@ -92,7 +92,7 @@ class ChoosePayloadTypePage(QtCore.QObject):
         pixmap = QtGui.QPixmap()
         pixmap.loadFromData(self.imagedata)
         self.label.setPixmap(pixmap)
-        self.label.resize(pixmap.width(), pixmap.height())
+        # self.label.resize(pixmap.width(), pixmap.height())
         self.label.setAlignment(QtCore.Qt.AlignCenter)  # center image label
         self.label.setStyleSheet("border-style: solid; border-width: 2px; border-color: black;")
         self.label.setObjectName("label")

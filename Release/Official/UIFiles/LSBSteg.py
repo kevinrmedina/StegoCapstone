@@ -15,13 +15,13 @@ Options:
 """
 ##TODO write try catch block in case path deletion fails
 import sys
-ros_path = '/opt/ros/kinetic/lib/python2.7/dist-packages'
+# ros_path = '/opt/ros/kinetic/lib/python2.7/dist-packages'
 
-if ros_path in sys.path:
-    sys.path.remove(ros_path)
+# if ros_path in sys.path:
+#     sys.path.remove(ros_path)
 
 import cv2           
-sys.path.append('/opt/ros/kinetic/lib/python2.7/dist-packages')
+# sys.path.append('/opt/ros/kinetic/lib/python2.7/dist-packages')
 
 import docopt
 import numpy as np
@@ -125,6 +125,7 @@ class LSBSteg():
         while i < l: #Read all bytes of the text
             tmp = self.read_byte() #So one byte
             i += 1
+            print(unhideTxt)
             unhideTxt += chr(int(tmp,2)) #Every chars concatenated to str
         return unhideTxt
 

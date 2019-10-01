@@ -213,6 +213,7 @@ class Controller:
         self.choosepayload.show_decode_file.connect(self.ShowDecodeFile)
         self.choosepayload.show_decode_text.connect(self.ShowDecodeText)
         self.choosepayload.show_encode_text.connect(self.ShowEncodeText)
+        self.choosepayload.switch_previous.connect(self.ShowDecodeEncodePage)
         self.MainWindow.setCentralWidget(self.choosepayload.Form)
         self.deencodepage.close()
         self.choosepayload.show()

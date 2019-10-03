@@ -13,8 +13,10 @@ class EncodeText(QtWidgets.QWidget):
         self.EncodingString = self.decodeTextArea.toPlainText()
         print(self.EncodingString)
         newDir = re.sub(r'\.png', 'STEGGED.png', self.carrierDir)
-        stegCommand = "python ./UIFiles/stegScript.py -e -t " + " " + self.carrierDir + " " + newDir + " " + self.EncodingString
-        subprocess.Popen(stegCommand.split())
+        #stegCommand = "python ./UIFiles/stegScript.py -e -t " + " " + self.carrierDir + " " + newDir + " " + self.EncodingString
+        stegCommand = "python ./UIFiles/stegScript.py -e -t " + " " + self.carrierDir + " " + newDir + " "
+        stegCommand = stegCommand.split() + [self.EncodingString]
+        subprocess.Popen(stegCommand)
         ENCODEDIMAGERESULT = newDir                    ####################### Encoded image result goes here, use self.EncodingString
         self.show_Result.emit(newDir, self.imageData, self.carrierDir, self.config, 3)
         
@@ -27,12 +29,12 @@ class EncodeText(QtWidgets.QWidget):
         self.imageData = imageData
         self.config = config
         self.carrierDir = CarrierDir
-        self.label = self.findChild(QtWidgets.QLabel, 'carrierImageLabel')
+        self.carrierLabel = self.findChild(QtWidgets.QLabel, 'carrierLabel')
         pixmap = QtGui.QPixmap()
         pixmap.loadFromData(imageData)
-        self.label.setPixmap(pixmap)
-        self.label.resize(pixmap.width(), pixmap.height())
-        self.label.setAlignment(QtCore.Qt.AlignCenter)  # center image label
+        self.carrierLabel.setPixmap(pixmap)
+        self.carrierLabel.resize(pixmap.width(), pixmap.height())
+        self.carrierLabel.setAlignment(QtCore.Qt.AlignCenter)  # center image carrierLabel
         self.decodeTextArea = self.findChild(QtWidgets.QTextEdit, 'encodeTextArea')
         self.EncodingString = self.decodeTextArea.toPlainText()         ######### STRING thats going to be encoded ################
         self.pushButton = self.findChild(QtWidgets.QAbstractButton, 'previousButton')

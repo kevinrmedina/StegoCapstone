@@ -8,7 +8,8 @@ class Ui(QtWidgets.QDialog):
     def __init__(self):
         super (Ui, self).__init__()
         uic.loadUi('Translation.ui', self)
-
+        
+        self.setFixedSize(750, 550)
         # Defining object pointers and connecting to their Methods
         #
         ##language Key pointers and methods

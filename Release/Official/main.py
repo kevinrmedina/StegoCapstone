@@ -28,7 +28,7 @@ class MainWindow(QtWidgets.QWidget):
     def __init__(self):
         QtWidgets.QWidget.__init__(self)
         self.setWindowTitle('Main Window')
-
+        #self.setFixedSize(750, 550)
         layout = QtWidgets.QVBoxLayout()
 
         imageLabel = QtWidgets.QLabel(self)

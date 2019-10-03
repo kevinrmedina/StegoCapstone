@@ -9,7 +9,7 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets, uic
 from fileservice import FileService
-
+from PyQt5.QtGui import QPixmap
 
 class BrowsePage(QtCore.QObject):
     switch_window = QtCore.pyqtSignal(object, object)
@@ -33,13 +33,13 @@ class BrowsePage(QtCore.QObject):
         Form.setObjectName("Form")
         #Form.resize(576, 448)
         Form.setFixedSize(750, 550)
-        self.pushButton = QtWidgets.QPushButton(Form)
-        self.pushButton.setGeometry(QtCore.QRect(230, 300, 89, 27))
-        self.pushButton.setObjectName("pushButton")
-        self.pushButton.clicked.connect(self.OpenBrowseFile)
-        self.label = QtWidgets.QLabel(Form)
-        self.label.setGeometry(QtCore.QRect(190, 50, 171, 151))
-        self.label.setObjectName("label")
+        self.browseFileButton = QtWidgets.QPushButton(Form)
+        self.browseFileButton.setGeometry(QtCore.QRect(305, 450, 131, 51))
+        self.browseFileButton.setObjectName("browseFileButton")
+        self.browseFileButton.clicked.connect(self.OpenBrowseFile)
+        self.logoLabel = QtWidgets.QLabel(Form)
+        self.logoLabel.setGeometry(QtCore.QRect(140, 0, 471, 401))
+        self.logoLabel.setObjectName("logoLabel")
 
         self.retranslateUi(Form)
         QtCore.QMetaObject.connectSlotsByName(Form)
@@ -47,15 +47,15 @@ class BrowsePage(QtCore.QObject):
     def retranslateUi(self, Form):
         _translate = QtCore.QCoreApplication.translate
         Form.setWindowTitle(_translate("Form", "Form"))
-        self.pushButton.setText(_translate("Form", "Browse File"))
-        self.label.setText(_translate("Form", "Here goes a picture"))
-       ### This is supposed to work. But it's not. Apparently setPixMap is not
-       ### an attribute of QLabel, but it is.
-       #self.label.setPixMap(QtGui.QPixmap("logo.jpeg"))
+        self.browseFileButton.setText(_translate("Form", "Browse File"))
+        self.logoLabel.setText(_translate("Form", "Here goes a picture"))
+        pixmap = QPixmap("logo.png")
+        self.logoLabel.setPixmap(pixmap)
+        self.logoLabel.resize(pixmap.width(), pixmap.height())
 
     def OpenBrowseFile(self):
         ImageFileName = FileService.openFileNameDialog(self.Form, self.Form)
-        if (ImageFileName != None or ImageFileName != ""):
+        if (ImageFileName != None and ImageFileName != ""):
             file = FileService.openFileContent(self, ImageFileName)
         else:
             #handle no file warning 

@@ -21,7 +21,7 @@ class EncodeText(QtWidgets.QWidget):
         self.show_Result.emit(newDir, self.imageData, self.carrierDir, self.config, 3)
         
     def ShowPrevious(self):
-        self.switch_previous.emit(self.imageData, self.config, self.carrierDir)
+        self.switch_previous.emit(self.imageData, self.config, self.carrierDir, 3)
 
     def __init__(self, imageData, config, CarrierDir):
         super (EncodeText, self).__init__()

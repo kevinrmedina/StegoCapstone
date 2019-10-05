@@ -228,6 +228,7 @@ class Controller:
     def ShowEncodeFile(self, imageData, config, CarrierDir, payloadDir):      
         self.encodefile = EncodeFile(imageData, config, CarrierDir, payloadDir)
         self.MainWindow.setCentralWidget(self.encodefile)
+        self.encodefile.show_Result.connect(self.ShowResult)
         self.encodefile.show()
         self.choosepayload.close()
      
@@ -240,6 +241,7 @@ class Controller:
     def ShowEncodeText(self, imageData, config, CarrierDir):
         self.encodetext = EncodeText(imageData, config, CarrierDir)
         self.encodetext.show_Result.connect(self.ShowResult)
+        self.encodetext.switch_previous.connect(self.ShowChoosePayloadTypePage)
         self.MainWindow.setCentralWidget(self.encodetext)
         self.encodetext.show()
         self.choosepayload.close()
@@ -253,17 +255,19 @@ class Controller:
 
     def ResultGoBack(self, imageData, config, CarrierDir, lastPage, payloadDir):
         if (lastPage == 1):
-            ShowEncodeFile(imageData, config, CarrierDir, payloadDir)
+            self.ShowEncodeFile(imageData, config, CarrierDir, payloadDir)
         elif (lastPage == 2):
-            ShowDecodeFile(imageData, config, CarrierDir)
+            self.ShowDecodeFile(imageData, config, CarrierDir)
         elif (lastPage == 3):
-            ShowEncodeText(imageData, config, CarrierDir)
+            self.ShowEncodeText(imageData, config, CarrierDir)
         elif (lastPage == 4):
-            ShowDecodeText(imageData, config, CarrierDir)
+            self.ShowDecodeText(imageData, config, CarrierDir)
 
     def ShowDecodeText(self, imageData, config, CarrierDir):
         self.decodetext = DecodeText(imageData, config, CarrierDir)
         self.MainWindow.setCentralWidget(self.decodetext)
+        self.decodetext.gotoMainMenu.connect(self.show_home)
+        self.decodetext.switch_previous.connect(self.ShowChoosePayloadTypePage)
         self.decodetext.show()
         self.choosepayload.close()
 

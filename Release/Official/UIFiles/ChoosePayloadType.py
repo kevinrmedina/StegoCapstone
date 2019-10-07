@@ -7,7 +7,8 @@
 # WARNING! All changes made in this file will be lost!
 from fileservice import FileService 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+from UIFiles import DesManager
+import re
 
 class ChoosePayloadTypePage(QtCore.QObject):
 
@@ -31,8 +32,24 @@ class ChoosePayloadTypePage(QtCore.QObject):
         if (self.Config == "Encode"):
             if (self.fileRadioButton.isChecked()):
                 #Show Browser to select payload and pass it to next page (pass payload directory)
-                payloadDir = FileService.openFileNameDialog(self.Form, self.Form)
-                self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDir)
+                payloadDir = FileService.openAnyFileNameDialog(self.Form, self.Form)
+                if (payloadDir != ''):
+                    #### Adding cryptographic components
+                    if(self.cryptographyCheckBox.isChecked()):
+                        if(self.algorithmComboBox.currentIndex() == 0): #AES
+                            print('AES')
+                        elif(self.algorithmComboBox.currentIndex() == 1): #DES
+                            payloadFileExtension = re.search('.*\.', payloadDir)
+                            payloadDirCrypt = re.sub('.*\.', 'Crypted', payloadDir)
+                            payloadDirCrypt = payloadDirCrypt + payloadFileExtension
+                            DesManager.write_encrypted_text(b'abcdefgh', payloadDirCrypt, payloadDir) 
+                            self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDir)
+                            
+                        elif(self.algorithmComboBox.currentIndex() == 2): #RSA
+                            print('RSA')
+
+
+                    self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDir)
             else:
                 self.show_encode_text.emit(self.imagedata, self.Config, self.carrierDir)
         else:
@@ -151,6 +168,7 @@ class ChoosePayloadTypePage(QtCore.QObject):
         self.algorithmComboBox = QtWidgets.QComboBox(self.verticalLayoutWidget)
         self.algorithmComboBox.setObjectName("algorithmComboBox")
         self.algorithmComboBox.setEnabled(False)
+        self.algorithmComboBox.addItems(['AES', 'DES', 'RSA'])
         self.cryptographyCheckBox.clicked.connect(self.cryptographyCheckBoxClicked)
         self.verticalLayout_4.addWidget(self.algorithmComboBox)
         self.verticalLayout.addLayout(self.verticalLayout_4)

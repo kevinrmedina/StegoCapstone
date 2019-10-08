@@ -5,7 +5,8 @@ from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QInputDialog, QL
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon
 from stegScript import *
-from PIL import Image
+# from hexdump import *
+# from PIL import Image
 
 class Ui_Form(object):
 	def setupUi(self, Form):
@@ -28,28 +29,37 @@ class Ui_Form(object):
 	def openFile(self):
 		options = QFileDialog.Options()
 		options |= QFileDialog.DontUseNativeDialog
-		fileName, _ = QFileDialog.getOpenFileName(None, "QFileDialog.getOpenFileName()", "", "*.png", options = options)
-				
+		if sys.argv[1] == '1':
+			fileName, _ = QFileDialog.getOpenFileName(None, "QFileDialog.getOpenFileName()", " ", "*.png *.jpg *.jpeg *.bmp *.gif *.tif *.dib *.jpe *.jfif *.tiff", options = options)
+		else: 
+			fileName, _ = QFileDialog.getOpenFileName(None, "QFileDialog.getOpenFileName()", "", "", options = options)
+		
 		if fileName:
 			# Print the image path
 			print(fileName)
+			
+			carrier = fileName
+			subprocess.call(["./stegScript.py", "-e", "-f", carrier])
+			#subprocess.call(["./hexdump.py", '-o', carrier])
 	
-			# It is a test to confirm the operation of the open button.
+			# It is a test to confirm the operation of the browser.
 			#image = Image.open(fileName)
 			#image.show()
 
 				
-		options = QFileDialog.Options()
-		options |= QFileDialog.DontUseNativeDialog
-		fileName2, _ = QFileDialog.getOpenFileName(None, "QFileDialog.getOpenFileName()", "", "*.png", options = options)
-				
-		if fileName2:
-			# Print the image path
-			print(fileName2)
+		#options = QFileDialog.Options()
+		#options |= QFileDialog.DontUseNativeDialog
+		#if sys.argv[1] == '1':
+		#fileName2, _ = QFileDialog.getOpenFileName(None, "QFileDialog.getOpenFileName()", "", "*.png", options = options)
+		#else:
+		
+		#if fileName2:
+			#Print the image path
+			#print(fileName2)
 
-		carrier = fileName
-		payload = fileName2
-		subprocess.call(["./stegScript.py", "-e", "-f", carrier, payload], shell = True)
+			#carrier = fileName
+		#payload = fileName2
+			#subprocess.call(["./hexdump.py", "-o", carrier], shell = True)
 
 if __name__ == "__main__":
 	app = QtWidgets.QApplication(sys.argv)

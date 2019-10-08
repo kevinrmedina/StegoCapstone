@@ -1,8 +1,7 @@
 #!/usr/bin/env python3
 
-
 import sys, os, subprocess
-from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog
+from PyQt5.QtWidgets import QMainWindow, QApplication, QWidget, QInputDialog, QLineEdit, QFileDialog, QMessageBox, QAction
 from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon, QPixmap
 from Hexdump3 import *
@@ -23,22 +22,36 @@ class Ui_Form(object):
 		self.uploadButton.setObjectName("uploadButton")
 
 		self.label = QtWidgets.QLabel(Form)
-		self.label.setGeometry(QtCore.QRect(286, 26, 261, 361))
+		self.label.setGeometry(QtCore.QRect(290, 30, 290, 361))
 		self.label.setFrameShape(QtWidgets.QFrame.Box)
 		self.label.setObjectName("label")
 
 		self.retranslateUi(Form)
 		QtCore.QMetaObject.connectSlotsByName(Form)
-		
+
+				
 		self.uploadButton.clicked.connect(self.openFile)
 		self.downloadButton.clicked.connect(self.saveFile)
+		self.downloadButton.clicked.connect(self.showPop)
 	
 	def retranslateUi(self, Form):
 		_translate = QtCore.QCoreApplication.translate
 		Form.setWindowTitle(_translate("Form", "Form"))
 		self.downloadButton.setText(_translate("Form", " Download Hexdump"))
-		self.uploadButton.setText(_translate("Form", "Upload FIle"))
+		self.uploadButton.setText(_translate("Form", "Upload File"))
+
+	def showPop(self):
+		msgBox = QMessageBox()
+		msgBox.setWindowTitle("Open Window")
+		msgBox.setText("Do you want to open the hexdump in a text editor?   ")
+		msgBox.setStandardButtons(QMessageBox.Yes | QMessageBox.No)
 		
+		returnValue = msgBox.exec_()
+		# if returnValue == QMessageBox.Yes:
+		#	self.openDump
+			
+	#def openDump(self):
+	
 	def openFile(self):
 		options = QFileDialog.Options()
 		options |= QFileDialog.DontUseNativeDialog
@@ -51,10 +64,10 @@ class Ui_Form(object):
 	def saveFile(self):
 		options = QFileDialog.Options()
 		options |= QFileDialog.DontUseNativeDialog
-		fileName2, _ = QFileDialog.getSaveFileName(None, "QFileDialog.getSaveFileName()", " ", "All Files (*)", options = options)
-		if fileName2:
+		self.fileName2, _ = QFileDialog.getSaveFileName(None, "QFileDialog.getSaveFileName()", " ", "All Files (*)", options = options)
+		if self.fileName2:
 			file = self.fileName
-			subprocess.call(["./Hexdump3.py", file, fileName2])
+			subprocess.call(["./Hexdump3.py", file, self.fileName2])
 
 						
 if __name__ == "__main__":

@@ -1,4 +1,3 @@
-
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
 import os
 import subprocess

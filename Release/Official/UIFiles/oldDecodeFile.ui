@@ -13,17 +13,17 @@
   <property name="windowTitle">
    <string>Form</string>
   </property>
-  <widget class="QPushButton" name="selectPayload">
+  <widget class="QPushButton" name="restartButton">
    <property name="geometry">
     <rect>
-     <x>10</x>
+     <x>560</x>
      <y>450</y>
-     <width>121</width>
+     <width>113</width>
      <height>51</height>
     </rect>
    </property>
    <property name="text">
-    <string>Select Payload</string>
+    <string>Restart</string>
    </property>
   </widget>
   <widget class="QPushButton" name="previousButton">
@@ -39,26 +39,13 @@
     <string>Previous</string>
    </property>
   </widget>
-  <widget class="QPushButton" name="nextButton">
-   <property name="geometry">
-    <rect>
-     <x>560</x>
-     <y>450</y>
-     <width>113</width>
-     <height>51</height>
-    </rect>
-   </property>
-   <property name="text">
-    <string>Next</string>
-   </property>
-  </widget>
   <widget class="QScrollArea" name="payloadScrollArea">
    <property name="geometry">
     <rect>
      <x>10</x>
      <y>10</y>
      <width>349</width>
-     <height>421</height>
+     <height>422</height>
     </rect>
    </property>
    <property name="widgetResizable">
@@ -70,12 +57,12 @@
       <x>0</x>
       <y>0</y>
       <width>347</width>
-      <height>419</height>
+      <height>420</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_3">
      <item row="0" column="0">
-      <widget class="QLabel" name="payloadLabel">
+      <widget class="QLabel" name="carrierLabel">
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/translation_images/hieroglyphics.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>
@@ -90,7 +77,7 @@
      <x>390</x>
      <y>10</y>
      <width>349</width>
-     <height>421</height>
+     <height>422</height>
     </rect>
    </property>
    <property name="widgetResizable">
@@ -102,12 +89,12 @@
       <x>0</x>
       <y>0</y>
       <width>347</width>
-      <height>419</height>
+      <height>420</height>
      </rect>
     </property>
     <layout class="QGridLayout" name="gridLayout_4">
      <item row="0" column="0">
-      <widget class="QLabel" name="carrierLabel">
+      <widget class="QLabel" name="payloadLabel_2">
        <property name="text">
         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/translation_images/hieroglyphics.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
        </property>

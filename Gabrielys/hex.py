@@ -21,8 +21,12 @@ class Hex_GUI(object):
 		self.uploadButton.setGeometry(QtCore.QRect(90, 250, 111, 25))
 		self.uploadButton.setObjectName("uploadButton")
 
+		self.closeButton = QtWidgets.QPushButton(Form)
+		self.closeButton.setGeometry(QtCore.QRect(550, 450, 90, 25))
+		self.closeButton.setObjectName("closeButton")
+
 		self.label = QtWidgets.QLabel(Form)
-		self.label.setGeometry(QtCore.QRect(290, 30, 290, 361))
+		self.label.setGeometry(QtCore.QRect(310, 30, 321, 391))
 		self.label.setFrameShape(QtWidgets.QFrame.Box)
 		self.label.setObjectName("label")
 
@@ -33,12 +37,14 @@ class Hex_GUI(object):
 		self.uploadButton.clicked.connect(self.openFile)
 		self.downloadButton.clicked.connect(self.saveFile)
 		self.downloadButton.clicked.connect(self.showPop)
+		self.closeButton.clicked.connect(QApplication.quit)
 	
 	def retranslateUi(self, Form):
 		_translate = QtCore.QCoreApplication.translate
 		Form.setWindowTitle(_translate("Form", "Form"))
 		self.downloadButton.setText(_translate("Form", " Download Hexdump"))
 		self.uploadButton.setText(_translate("Form", "Upload File"))
+		self.closeButton.setText(_translate("Form", "Close"))
 
 	def showPop(self):
 		msgBox = QMessageBox()
@@ -50,7 +56,10 @@ class Hex_GUI(object):
 		if returnValue == QMessageBox.Yes:
 			subprocess.Popen(['xdg-open', self.fileName2])
 			
+<<<<<<< HEAD
 	
+=======
+>>>>>>> 88902513570f4cb76d44e7608f3855fa44bb8cc4
 	def openFile(self):
 		options = QFileDialog.Options()
 		options |= QFileDialog.DontUseNativeDialog
@@ -76,5 +85,4 @@ if __name__ == "__main__":
 	ui.setupUi(Form)
 	Form.show()
 	sys.exit(app.exec_())
-
 

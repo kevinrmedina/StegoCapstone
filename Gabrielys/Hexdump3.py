@@ -5,7 +5,6 @@ import argparse
 import math
 import os
 import sys
-from hexForm import *
 
 def dump(filepath, fileName, chunksize = 16, verbose = False, info = False, raw = False):
     if not os.path.exists(filepath): raise FileNotFoundError("file not found")

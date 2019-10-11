@@ -21,13 +21,13 @@ class ResultScreen(QtWidgets.QWidget):
         self.CarrierDir = CarrierDir
         self.config = config
         self.imageData = imageData
-        self.label = self.findChild(QtWidgets.QLabel, 'carrierLabel')
+        self.label = self.findChild(QtWidgets.QLabel, 'originalImageLabel')
         pixmap = QtGui.QPixmap()
         pixmap.loadFromData(imageData)
         self.label.setPixmap(pixmap)
         # self.label.resize(pixmap.width(), pixmap.height())
         self.label.setAlignment(QtCore.Qt.AlignCenter)  # center image label
-        self.label_2 = self.findChild(QtWidgets.QLabel, 'resultLabel')
+        self.label_2 = self.findChild(QtWidgets.QLabel, 'steggedImageLabel')
         pixmap2 = QtGui.QPixmap()
         pixmap2.loadFromData(imageData)
         self.label_2.setPixmap(pixmap2)

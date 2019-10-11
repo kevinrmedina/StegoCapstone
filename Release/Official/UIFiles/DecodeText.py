@@ -25,7 +25,7 @@ class DecodeText(QtWidgets.QWidget):
         self.imageData = imageData
         self.config = config
         self.CarrierDir = CarrierDir
-        self.label = self.findChild(QtWidgets.QLabel, 'carrierImageLabel')
+        self.label = self.findChild(QtWidgets.QLabel, 'carrierLabel')
         pixmap = QtGui.QPixmap()
         pixmap.loadFromData(imageData)
         self.label.setPixmap(pixmap)

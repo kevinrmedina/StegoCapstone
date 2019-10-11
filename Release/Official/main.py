@@ -7,7 +7,7 @@ from UIFiles.HomePage import HomePage
 from UIFiles.BrowsePage import BrowsePage
 from UIFiles.EncodeDecodePage import EncodeDecodePage
 from UIFiles.ChoosePayloadType import ChoosePayloadTypePage
-from UIFiles.Translation import TanslationPage
+from UIFiles.translation_pane import TanslationPane
 #from UIFiles.EncryptionPage import EncryptionPage
 from UIFiles.TextPayloadPage import TextPayloadPage
 from UIFiles.EncodeFile import EncodeFile
@@ -283,8 +283,8 @@ class Controller:
         self.window.close()
         self.window_two.show()
 
-    def OpenTranslationPane():
-        self.translation = TranslationPage()
+    def OpenTranslationPane(self, randomobjectidontknowabout):
+        self.translation = TanslationPane()
         self.translation.show()
 
 

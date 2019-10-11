@@ -6,6 +6,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 from PyQt5.QtGui import QIcon, QPixmap
 from Hexdump3 import *
 from enum import Enum
+import re
 
 class Hex_GUI(object):
 	
@@ -21,10 +22,24 @@ class Hex_GUI(object):
 		self.uploadButton.setGeometry(QtCore.QRect(90, 250, 111, 25))
 		self.uploadButton.setObjectName("uploadButton")
 
-		self.label = QtWidgets.QLabel(Form)
-		self.label.setGeometry(QtCore.QRect(290, 30, 290, 361))
-		self.label.setFrameShape(QtWidgets.QFrame.Box)
+		self.scrollArea = QtWidgets.QScrollArea(Form)
+		self.scrollArea.setGeometry(QtCore.QRect(280, 20, 411, 411))
+		self.scrollArea.setWidgetResizable(True)
+		self.scrollArea.setObjectName("scrollArea")
+		self.scrollAreaWidgetContents = QtWidgets.QWidget()
+		self.scrollAreaWidgetContents.setGeometry(QtCore.QRect(0, 0, 409, 409))
+		self.scrollAreaWidgetContents.setObjectName("scrollAreaWidgetContents")
+
+		self.label = QtWidgets.QLabel(self.scrollAreaWidgetContents)
+		self.label.setGeometry(QtCore.QRect(26, 16, 361, 371))
+		#self.label.setFrameShape(QtWidgets.QFrame.Box)
 		self.label.setObjectName("label")
+		self.scrollArea.setWidget(self.scrollAreaWidgetContents)
+		
+
+		self.closeButton = QtWidgets.QPushButton(Form)
+		self.closeButton.setGeometry(QtCore.QRect(600, 470, 89, 25))
+		self.closeButton.setObjectName("closeButton")
 
 		self.retranslateUi(Form)
 		QtCore.QMetaObject.connectSlotsByName(Form)
@@ -33,12 +48,14 @@ class Hex_GUI(object):
 		self.uploadButton.clicked.connect(self.openFile)
 		self.downloadButton.clicked.connect(self.saveFile)
 		self.downloadButton.clicked.connect(self.showPop)
+		self.closeButton.clicked.connect(QApplication.quit)
 	
 	def retranslateUi(self, Form):
 		_translate = QtCore.QCoreApplication.translate
 		Form.setWindowTitle(_translate("Form", "Form"))
-		self.downloadButton.setText(_translate("Form", " Download Hexdump"))
+		self.downloadButton.setText(_translate("Form", " Generate Hexdump"))
 		self.uploadButton.setText(_translate("Form", "Upload File"))
+		self.closeButton.setText(_translate("Form", "Close"))
 
 	def showPop(self):
 		msgBox = QMessageBox()
@@ -50,16 +67,18 @@ class Hex_GUI(object):
 		if returnValue == QMessageBox.Yes:
 			subprocess.Popen(['xdg-open', self.fileName2])
 			
-	
 	def openFile(self):
 		options = QFileDialog.Options()
 		options |= QFileDialog.DontUseNativeDialog
 		self.fileName, _ = QFileDialog.getOpenFileName(None, "QFileDialog.getOpenFileName()", " ", "All Files (*)", options = options)
-		if self.fileName:
-			image = QPixmap(self.fileName)
+		image = QPixmap(self.fileName)
+		fileExtension = re.sub(r'.*\.', '', self.fileName)
+		if fileExtension == 'png' or fileExtension == 'jpg' or fileExtension == 'jpeg' or fileExtension == 'bmp' or fileExtension == 'gif': 
 			self.label.setPixmap(image)
-			self.label.resize(image.width(), image.height())
-	
+			#self.label.resize(image.width(), image.height())
+		else:
+			self.label.setText(self.fileName)
+			
 	def saveFile(self):
 		options = QFileDialog.Options()
 		options |= QFileDialog.DontUseNativeDialog

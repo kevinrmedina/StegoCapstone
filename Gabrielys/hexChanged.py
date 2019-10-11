@@ -56,6 +56,7 @@ class Hex_GUI(object):
         if returnValue == QMessageBox.Yes:
             subprocess.Popen(['xdg-open', self.fileName2])
 			
+<<<<<<< HEAD
     def openFile(self):
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
@@ -64,6 +65,20 @@ class Hex_GUI(object):
             image = QPixmap(self.fileName)
             self.label.setPixmap(image)
             self.label.resize(image.width(), image.height())
+=======
+<<<<<<< HEAD
+	
+=======
+>>>>>>> 88902513570f4cb76d44e7608f3855fa44bb8cc4
+	def openFile(self):
+		options = QFileDialog.Options()
+		options |= QFileDialog.DontUseNativeDialog
+		self.fileName, _ = QFileDialog.getOpenFileName(None, "QFileDialog.getOpenFileName()", " ", "All Files (*)", options = options)
+		if self.fileName:
+			image = QPixmap(self.fileName)
+			self.label.setPixmap(image)
+			self.label.resize(image.width(), image.height())
+>>>>>>> d4e08bd4652d6a761099a24dc360cd8c1c74ceea
 	
     def saveFile(self):
         options = QFileDialog.Options()

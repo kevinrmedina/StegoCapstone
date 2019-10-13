@@ -44,6 +44,7 @@ class ChoosePayloadTypePage(QtCore.QObject):
                             payloadDirCrypt = payloadDirCrypt + payloadFileExtension
                             DesManager.write_encrypted_text(b'abcdefgh', payloadDirCrypt, payloadDir) 
                             self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDir)
+                            return
                             
                         elif(self.algorithmComboBox.currentIndex() == 2): #RSA
                             print('RSA')

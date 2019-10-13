@@ -196,7 +196,13 @@ class Controller:
         self.browsepage = BrowsePage()
         self.MainWindow.setCentralWidget(self.browsepage.Form)
         self.browsepage.switch_window.connect(self.ShowDecodeEncodePage)
-        self.home.close()
+        try:
+            self.home.close()
+            self.home = None
+        except:
+            self.deencodepage.close()
+            self.deencodepage = None
+
         self.browsepage.show()
     
     def ShowDecodeEncodePage(self, imageData, ImageDir):
@@ -204,7 +210,12 @@ class Controller:
         self.MainWindow.setCentralWidget(self.deencodepage.Form)
         self.deencodepage.switch_window.connect(self.ShowChoosePayloadTypePage)
         self.deencodepage.previous_clicked.connect(self.showBrowsePage)
-        self.browsepage.close()
+        try:
+            self.browsepage.close()
+            self.browsepage = None
+        except:
+            self.choosepayload.close()
+            self.choosepayload = None
         self.deencodepage.show()
 
     def ShowChoosePayloadTypePage(self, imageData, config, ImageDir):
@@ -215,7 +226,22 @@ class Controller:
         self.choosepayload.show_encode_text.connect(self.ShowEncodeText)
         self.choosepayload.switch_previous.connect(self.ShowDecodeEncodePage)
         self.MainWindow.setCentralWidget(self.choosepayload.Form)
-        self.deencodepage.close()
+        if self.deencodepage:
+            self.deencodepage.close()
+            self.deencodepage = None
+        elif self.encodetext:
+            self.encodetext.close()
+            self.encodetext = None
+        elif self.decodefile:
+            self.decodefile.close()
+            self.decodefile = None
+        elif self.decodetext:
+            self.decodetext.close()
+            self.decodetext = None
+        elif self.encodefile:
+            self.encodefile.close()
+            self.encodefile = None
+        
         self.choosepayload.show()
     
     def ShowTextPayloadPage(self, imageData, config, CarrierDir):
@@ -229,14 +255,21 @@ class Controller:
         self.encodefile = EncodeFile(imageData, config, CarrierDir, payloadDir)
         self.MainWindow.setCentralWidget(self.encodefile)
         self.encodefile.show_Result.connect(self.ShowResult)
+        self.encodefile.switch_previous.connect(self.ShowChoosePayloadTypePage)
         self.encodefile.show()
         self.choosepayload.close()
      
     def ShowDecodeFile(self, imageData, config, CarrierDir):
         self.decodefile = DecodeFile(imageData, config, CarrierDir)
+        self.decodefile.gotoMainMenu.connect(self.show_home)
+        self.decodefile.switch_previous.connect(self.ShowChoosePayloadTypePage)
         self.MainWindow.setCentralWidget(self.decodefile)
         self.decodefile.show()
-        self.choosepayload.close()
+        try:
+            self.choosepayload.close()
+            self.choosepayload = None
+        except:
+            pass
     
     def ShowEncodeText(self, imageData, config, CarrierDir):
         self.encodetext = EncodeText(imageData, config, CarrierDir)

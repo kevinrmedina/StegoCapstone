@@ -174,7 +174,10 @@ class LSBSteg():
         l = int(self.read_bits(64), 2)
         output = b""
         for i in range(l):
-            output += chr(int(self.read_byte(),2))#.encode("utf-8")
+            try:
+                output += chr(int(self.read_byte(),2))#.encode("utf-8")
+            except:
+                pass
         return output
 
 

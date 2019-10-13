@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>580</width>
-    <height>497</height>
+    <width>750</width>
+    <height>550</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -23,7 +23,7 @@
     </rect>
    </property>
    <property name="text">
-    <string> Download Hexdump</string>
+    <string> Generate Hexdump</string>
    </property>
   </widget>
   <widget class="QPushButton" name="uploadButton">
@@ -39,73 +39,50 @@
     <string>Upload FIle</string>
    </property>
   </widget>
-  <widget class="QLabel" name="label">
+  <widget class="QPushButton" name="pushButton">
    <property name="geometry">
     <rect>
-     <x>286</x>
-     <y>26</y>
-     <width>261</width>
-     <height>361</height>
+     <x>600</x>
+     <y>470</y>
+     <width>89</width>
+     <height>25</height>
     </rect>
-   </property>
-   <property name="frameShape">
-    <enum>QFrame::Box</enum>
    </property>
    <property name="text">
-    <string/>
+    <string>Close</string>
    </property>
   </widget>
-  <widget class="QStackedWidget" name="stackedWidget">
+  <widget class="QScrollArea" name="carrierScrollArea">
    <property name="geometry">
     <rect>
-     <x>140</x>
-     <y>100</y>
-     <width>341</width>
-     <height>231</height>
+     <x>360</x>
+     <y>10</y>
+     <width>370</width>
+     <height>450</height>
     </rect>
    </property>
-   <widget class="QWidget" name="page">
-    <widget class="QDialogButtonBox" name="buttonBox">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>160</y>
-       <width>166</width>
-       <height>25</height>
-      </rect>
-     </property>
-     <property name="standardButtons">
-      <set>QDialogButtonBox::No|QDialogButtonBox::Yes</set>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>50</x>
-       <y>60</y>
-       <width>241</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>Do you want to open the hexdump </string>
-     </property>
-    </widget>
-    <widget class="QLabel" name="label_3">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>90</y>
-       <width>111</width>
-       <height>17</height>
-      </rect>
-     </property>
-     <property name="text">
-      <string>in a text editor?</string>
-     </property>
-    </widget>
+   <property name="widgetResizable">
+    <bool>true</bool>
+   </property>
+   <widget class="QWidget" name="scrollAreaWidgetContents">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>368</width>
+      <height>448</height>
+     </rect>
+    </property>
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;img src=&quot;:/translation_images/hieroglyphics.jpg&quot;/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
    </widget>
-   <widget class="QWidget" name="page_2"/>
   </widget>
  </widget>
  <resources/>

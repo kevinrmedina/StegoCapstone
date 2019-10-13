@@ -38,7 +38,7 @@ class EncodeFile(QtWidgets.QWidget):
         self.label_2.resize(pixmap.width(), pixmap.height())
         #self.lablabel_2el.setAlignment(QtCore.Qt.AlignCenter)  # center image label
         self.label_2.setAlignment(QtCore.Qt.AlignCenter)  # center image label
-        self.pushButton_2 = self.findChild(QtWidgets.QAbstractButton, 'pushButton_2')
+        self.pushButton_2 = self.findChild(QtWidgets.QAbstractButton, 'nextButton')
         # self.pushButton_2.setText("Next")
         self.pushButton_2.clicked.connect(self.ShowResult)
         self.pushButton = self.findChild(QtWidgets.QAbstractButton, 'previousButton')

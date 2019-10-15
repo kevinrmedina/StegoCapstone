@@ -1,0 +1,12 @@
+!/bin/bash
+
+apt-get install python
+
+apt-get install python3
+
+pip install opencv-python
+pip install docopt
+pip install numpy
+
+pip3 install pycryptodome
+pip3 install PyQt5

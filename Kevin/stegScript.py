@@ -5,7 +5,7 @@ import sys
 
 def encodeFile(cF, pF, nF):
     carrier = LSBSteg(cv2.imread(cF))
-    payload = open(pf, "rb").read()
+    payload = open(pF, "rb").read()
     result = carrier.encode_binary(payload)
     cv2.imwrite(nF, result)
     return;

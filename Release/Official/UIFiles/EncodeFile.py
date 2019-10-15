@@ -2,6 +2,7 @@ import sys
 
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
 import os
+import os.path
 import subprocess
 import re
 from fileservice import FileService
@@ -27,17 +28,21 @@ class EncodeFile(QtWidgets.QWidget):
         pixmap = QtGui.QPixmap()
         pixmap.loadFromData(imageData)
         self.label.setPixmap(pixmap)
-        self.label.resize(pixmap.width(), pixmap.height())
+        # self.label.resize(pixmap.width(), pixmap.height())
         self.label.setAlignment(QtCore.Qt.AlignCenter)  # center image label
         self.label_2 = self.findChild(QtWidgets.QLabel, 'payloadLabel')
         pixmap = QtGui.QPixmap()
         #TODO Validate payload Dir
-        payloaddata = FileService.openFileContent(self, payloadDir)
-        pixmap.loadFromData(payloaddata.read())
-        self.label_2.setPixmap(pixmap)
-        self.label_2.resize(pixmap.width(), pixmap.height())
-        #self.lablabel_2el.setAlignment(QtCore.Qt.AlignCenter)  # center image label
-        self.label_2.setAlignment(QtCore.Qt.AlignCenter)  # center image label
+        extension = os.path.splitext(payloadDir)[1]
+        print(extension)
+        if (extension == ".png" or extension == ".jpeg" or extension == ".jpg" or extension == ".gif"):
+            payloaddata = FileService.openFileContent(self, payloadDir)
+            pixmap.loadFromData(payloaddata.read())
+            self.label_2.setPixmap(pixmap)
+            # self.label_2.resize(pixmap.width(), pixmap.height())
+            self.label_2.setAlignment(QtCore.Qt.AlignCenter)  # center image labelself.label_2.setAlignment(QtCore.Qt.AlignCenter)  # center image label
+        else:
+            self.label_2.setText(payloadDir)
         self.pushButton_2 = self.findChild(QtWidgets.QAbstractButton, 'nextButton')
         # self.pushButton_2.setText("Next")
         self.pushButton_2.clicked.connect(self.ShowResult)

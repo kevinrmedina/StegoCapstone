@@ -34,7 +34,7 @@ class DecodeFile(QtWidgets.QWidget):
         self.label.setAlignment(QtCore.Qt.AlignCenter)  # center image label
         self.label_2 = self.findChild(QtWidgets.QLabel, 'payloadLabel_2')
         pixmap2 = QtGui.QPixmap()
-        newDir = "recoveredFile" 
+        newDir = "/home/kikohiho/Desktop/StegCapstone/StegoCapstone/Release/Official/UIFiles/recoveredFile" 
         stegCommand = "python ./UIFiles/stegScript.py -d -f " + self.CarrierDir + " " + newDir
         subprocess.Popen(stegCommand.split(), stdout=subprocess.PIPE)
         payloaddata = FileService.openFileContent(self, newDir)                                ######### data of decoded image needs to go here 

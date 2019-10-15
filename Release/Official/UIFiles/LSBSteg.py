@@ -173,9 +173,17 @@ class LSBSteg():
     def decode_binary(self):
         l = int(self.read_bits(64), 2)
         output = b""
+        outputstr = ""
         for i in range(l):
-            output += chr(int(self.read_byte(),2))#.encode("utf-8")
-        return output
+            try:
+                output += chr(int(self.read_byte(),2))#.encode("utf-8")
+            except:
+                output = None
+                #print(str(chr(int(self.read_byte(),2))))
+                #print(bytes(self.read_byte(), "utf-8"))
+                outputstr += (str(int(self.read_byte(),2))) #.encode("utf-8")
+
+        return outputstr.encode('utf-8') if output == None else output
 
 
 def main():

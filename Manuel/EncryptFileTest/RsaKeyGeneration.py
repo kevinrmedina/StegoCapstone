@@ -1,14 +1,13 @@
 from Crypto.PublicKey import RSA
 
 
-class RsaKeyGeneration:
+class RsaKeyGenerator:
 
-    def __index__(self, key_length):
-        self.__key_length = key_length
-        self.__key = RSA.generate(self.__key_length)
+    def __init__(self):
+        self.key = RSA.generate(2048)
 
     def generate_public_key(self):
-        return self.__key.publickey().exportKey()
+        return self.key.publickey().export_key()
 
     def generate_private_key(self, password):
-        return self.__key.exportKey(passphrase=password, pkcs=8, protection="scryptAndAES128-CBC")
+        return self.key.exportKey(passphrase=password, pkcs=8, protection="scryptAndAES128-CBC")

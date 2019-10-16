@@ -40,7 +40,8 @@ class ChoosePayloadTypePage(QtCore.QObject):
                             print('AES')
                         elif(self.algorithmComboBox.currentIndex() == 1): #DES
                             payloadDirCrypt = re.sub('\.', 'Crypted.', payloadDir)
-                            DesManager.write_encrypted_text(b'abcdefgh', payloadDirCrypt, payloadDir) 
+                            password = self.encryptionKeyTextEdit.toPlainText()
+                            DesManager.write_encrypted_text(password.encode('ascii'), payloadDirCrypt, payloadDir) 
                             self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDirCrypt)
                             
                         elif(self.algorithmComboBox.currentIndex() == 2): #RSA

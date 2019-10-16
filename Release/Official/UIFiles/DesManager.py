@@ -1,5 +1,5 @@
-from DesCrypto import DesCrypto
-from DesKeyGeneration import DesKeyGenerator
+from UIFiles.DesCrypto import DesCrypto
+from UIFiles.DesKeyGeneration import DesKeyGenerator
 
 
 def write_encrypted_text(password, out_filename, plaintext_filename):

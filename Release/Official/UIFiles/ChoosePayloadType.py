@@ -38,8 +38,8 @@ class ChoosePayloadTypePage(QtCore.QObject):
                     if(self.cryptographyCheckBox.isChecked()):
                         payloadDirCrypt = re.sub(r'\/(?=[^/]*$).*', '/EncryptedFile', payloadDir)
                         password = self.encryptionKeyTextEdit.toPlainText()
-                        if(self.algorithmComboBox.currentIndex() == 0): #AES
-                            AesManager.write_encrypted_text(password.encode('ascii'), payloadDirCrypt, payloadDir, ) 
+                        if self.algorithmComboBox.currentIndex() == 0:  # AES
+                            AesManager.write_encrypted_text(password.encode('ascii'), payloadDirCrypt, payloadDir)
                             self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDirCrypt)
                         elif(self.algorithmComboBox.currentIndex() == 1): #DES
                             DesManager.write_encrypted_text(password.encode('ascii'), payloadDirCrypt, payloadDir)

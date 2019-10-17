@@ -15,6 +15,8 @@ from UIFiles.DecodeFile import DecodeFile
 from UIFiles.DecodeText import DecodeText
 from UIFiles.EncodeText import EncodeText
 from UIFiles.ResultScreen import ResultScreen
+from UIFiles.EncryptDecryptPage import EncryptDecryptPage
+from UIFiles.RSAKeyGeneratorPage import RSAKeyGeneratorPage
 
 
 WINDOWWIDTH = 800
@@ -168,6 +170,13 @@ class Controller:
         self.translation = TanslationPane()
         self.translation.show()
 
+    def ShowEncryptDecryptPage(self):
+        self.encryptdecrypt = EncryptDecryptPage()
+        self.encryptdecrypt.show()
+
+    def ShowRSAKeyGeneratorPage(self):
+        self.rsagenerator = RSAKeyGeneratorPage()
+        self.rsagenerator.show()
 
 
 
@@ -178,13 +187,24 @@ def main():
     MainWindow = QtWidgets.QMainWindow()
     controller = Controller(MainWindow)
     #Menu option called Open Translation Pane to 'File' menu
-    extractAction = QtWidgets.QAction("Open Translation Pane", MainWindow)
-    extractAction.setShortcut("Ctrl+Q")
-    extractAction.setStatusTip('Leave The App')
-    extractAction.triggered.connect(controller.OpenTranslationPane)
+    translationAction = QtWidgets.QAction("Open Translation Pane", MainWindow)
+    translationAction.setShortcut("Ctrl+T")
+    translationAction.setStatusTip('Open Translation Pane')
+    translationAction.triggered.connect(controller.OpenTranslationPane)
+    encryptdecryptAction = QtWidgets.QAction("Open Decrypt Encrypt Page", MainWindow)
+    encryptdecryptAction.setShortcut("Ctrl+E")
+    encryptdecryptAction.setStatusTip('Open decrypt and encrypt page')
+    encryptdecryptAction.triggered.connect(controller.ShowEncryptDecryptPage)
+    rsageneratorAction = QtWidgets.QAction("Open RSA key generator page", MainWindow)
+    rsageneratorAction.setShortcut("Ctrl+K")
+    rsageneratorAction.setStatusTip('Open RSA Key generator page')
+    rsageneratorAction.triggered.connect(controller.ShowRSAKeyGeneratorPage)
+
     mainMenu = MainWindow.menuBar()
-    fileMenu = mainMenu.addMenu('&File')
-    fileMenu.addAction(extractAction)
+    toolsMenu = mainMenu.addMenu('&Tools')
+    toolsMenu.addAction(translationAction)
+    toolsMenu.addAction(encryptdecryptAction)
+    toolsMenu.addAction(rsageneratorAction)
     MainWindow.show()
     MainWindow.resize(640, 500)
     #MainWindow.setCentralWidget(self.Form)

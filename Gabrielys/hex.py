@@ -51,7 +51,7 @@ class Hex_GUI(object):
 	
 	def retranslateUi(self, Form):
 		_translate = QtCore.QCoreApplication.translate
-		Form.setWindowTitle(_translate("Form", "Form"))
+		Form.setWindowTitle(_translate("Form", "Hexdump"))
 		self.downloadButton.setText(_translate("Form", " Generate Hexdump"))
 		self.uploadButton.setText(_translate("Form", "Upload File"))
 		self.closeButton.setText(_translate("Form", "Close"))

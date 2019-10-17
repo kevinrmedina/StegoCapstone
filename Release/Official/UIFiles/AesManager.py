@@ -1,6 +1,6 @@
 
-from Release.Official.UIFiles.AesKeyGeneration import AesKeyGenerator
-from Release.Official.UIFiles.AesCrypto import AesCrypto
+from UIFiles.AesKeyGeneration import AesKeyGenerator
+from UIFiles.AesCrypto import AesCrypto
 
 
 def write_encrypted_text(password, out_filename, plaintext_filename):

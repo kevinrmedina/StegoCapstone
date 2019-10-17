@@ -1,5 +1,4 @@
-#from RsaCrypto import RsaCrypto
-import UIFiles.RsaCrypto
+from UIFiles.RsaCrypto import RsaCrypto
 
 def write_encrypted_stream(public_key, out_filename, in_filename):
     cipher = RsaCrypto(public_key)

@@ -46,21 +46,14 @@ class ChoosePayloadTypePage(QtCore.QObject):
                             self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDirCrypt)
 
                         elif(self.algorithmComboBox.currentIndex() == 2): #RSA
-<<<<<<< HEAD
-                             
-=======
-<<<<<<< HEAD
                             if self.publicKeyLineEdit.hasAcceptableInput():
                                 public_key_file_path = self.publicKeyLineEdit.text()
                                 public_key_file = open(public_key_file_path, 'rb')
                                 public_key = public_key_file.read()
                                 public_key_file.close()
                                 RsaManager.write_encrypted_stream(public_key, payloadDirCrypt, payloadDir)
-=======
-                            
->>>>>>> 1773a1d4ae4acfc2a06db1abeb3465fee8f7fdca
-                            RsaManager.write_encrypted_stream()
->>>>>>> a8773dca6ed46b06e2255469549478c97128be99
+                                self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDirCrypt)
+                                            
 
 
                     else:

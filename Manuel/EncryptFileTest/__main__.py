@@ -74,20 +74,21 @@ import sys
 #
 # print(RsaCrypto.decrypt(private_key, 'abcdefgh', session_key, nonce, tag, cipher_text))
 
-public_key = open('public.key', 'rb').read()
+# public_key = open('public.key', 'rb').read()
+# private_key = open('private.key', 'rb').read()
+#
+# cipher_text_filename = 'rsa_encrypted.bin'
+# #
+# plaintext_in = open('hi', 'rb').read()
+# cipher, tag = RsaManager.write_encrypted_stream(public_key, cipher_text_filename, 'hi')
+#
+# password = 'abcdefgh'
+# print('Direct nonce is ' + str(cipher.get_nonce()))
+# print(cipher.get_session_key())
+# print('Direct tag is ' + str(tag))
+# RsaManager.write_decrypted_stream(password, private_key, 'rsa_plaintext', cipher_text_filename)
+
 private_key = open('private.key', 'rb').read()
-
-cipher_text_filename = 'rsa_encrypted.bin'
-
-plaintext_in = open('hi', 'rb').read()
-cipher, tag = RsaManager.write_encrypted_stream(public_key, cipher_text_filename, 'hi')
-
-password = 'abcdefgh'
-print('Direct nonce is ' + str(cipher.get_nonce()))
-print(cipher.get_session_key())
-print('Direct tag is ' + str(tag))
-RsaManager.write_decrypted_stream(password, private_key, 'rsa_plaintext', cipher_text_filename)
-
-
+RsaManager.write_decrypted_stream('abcdefgh', private_key, 'decryptedRSA', 'recoveredFileRSA')
 
 

@@ -46,12 +46,17 @@ class ChoosePayloadTypePage(QtCore.QObject):
                             self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDirCrypt)
 
                         elif(self.algorithmComboBox.currentIndex() == 2): #RSA
+<<<<<<< HEAD
                             if self.publicKeyLineEdit.hasAcceptableInput():
                                 public_key_file_path = self.publicKeyLineEdit.text()
                                 public_key_file = open(public_key_file_path, 'rb')
                                 public_key = public_key_file.read()
                                 public_key_file.close()
                                 RsaManager.write_encrypted_stream(public_key, payloadDirCrypt, payloadDir)
+=======
+                            
+                            RsaManager.write_encrypted_stream()
+>>>>>>> a8773dca6ed46b06e2255469549478c97128be99
 
 
                     else:
@@ -183,6 +188,7 @@ class ChoosePayloadTypePage(QtCore.QObject):
         self.encryptionKeyTextEdit.setMaximumSize(QtCore.QSize(16777215, 45))
         self.encryptionKeyTextEdit.setObjectName("encryptionKeyTextEdit")
         self.encryptionKeyTextEdit.setEnabled(False)
+        self.encryptionKeyTextEdit.focusInEvent(self.encryptionKeyTextEditFocus)
         self.verticalLayout.addWidget(self.encryptionKeyTextEdit)
         self.verticalLayout_10 = QtWidgets.QVBoxLayout()
         self.verticalLayout_10.setObjectName("verticalLayout_10")
@@ -294,3 +300,6 @@ class ChoosePayloadTypePage(QtCore.QObject):
         else:
             self.publicKeyPushButton.setEnabled(False)
             self.privateKeyPushButton.setEnabled(False)
+
+    def encryptionKeyTextEditFocus(self):
+        self.encryptionKeyTextEdit.setPlainText("")

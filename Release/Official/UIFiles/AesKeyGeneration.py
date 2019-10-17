@@ -4,8 +4,8 @@ from Crypto.Random import get_random_bytes
 
 class AesKeyGenerator:
 
-    def __init__(self, password, key_length):
-        self.__salt = get_random_bytes(key_length)
+    def __init__(self, password):
+        self.__salt = get_random_bytes(32)
         self.__password = password
 
     def generate_key_from_password(self):

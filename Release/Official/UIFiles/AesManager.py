@@ -1,10 +1,12 @@
-#from AesCrypto import AesCrypto
-#from AesKeyGeneration import AesKeyGenerator
-import UIFiles.AesCrypto
-import UIFiles.AesKeyGeneration
+
+from Release.Official.UIFiles.AesKeyGeneration import AesKeyGenerator
+from Release.Official.UIFiles.AesCrypto import AesCrypto
 
 
-def write_encrypted_text(key, out_filename, plaintext_filename, salt):
+def write_encrypted_text(password, out_filename, plaintext_filename):
+    generator = AesKeyGenerator(password)
+    salt = generator.get_salt()
+    key = generator.generate_key_from_password()
     cipher = AesCrypto(key)
     file_in = open(plaintext_filename, 'rb')
     plaintext = file_in.read()
@@ -30,8 +32,3 @@ def write_decrypted_text(password, plaintext_filename, encrypted_filename):
     file_out = open(plaintext_filename, 'wb')
     file_out.write(plaintext)
     file_out.close()
-
-
-def get_key_and_salt(password, key_length):
-    generator = AesKeyGenerator(password, key_length)
-    return generator.generate_key_from_password(), generator.get_salt()

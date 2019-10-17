@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 from fileservice import FileService 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from UIFiles import DesManager, AesManager#, RsaManager
+from UIFiles import DesManager, AesManager, RsaManager
 import re
 
 class ChoosePayloadTypePage(QtCore.QObject):
@@ -44,9 +44,14 @@ class ChoosePayloadTypePage(QtCore.QObject):
                         elif(self.algorithmComboBox.currentIndex() == 1): #DES
                             DesManager.write_encrypted_text(password.encode('ascii'), payloadDirCrypt, payloadDir)
                             self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDirCrypt)
-                            
+
                         elif(self.algorithmComboBox.currentIndex() == 2): #RSA
-                            print('RSA')
+                            if self.publicKeyLineEdit.hasAcceptableInput():
+                                public_key_file_path = self.publicKeyLineEdit.text()
+                                public_key_file = open(public_key_file_path, 'rb')
+                                public_key = public_key_file.read()
+                                public_key_file.close()
+                                RsaManager.write_encrypted_stream(public_key, payloadDirCrypt, payloadDir)
 
 
                     else:

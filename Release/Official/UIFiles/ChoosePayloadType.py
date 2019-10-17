@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 from fileservice import FileService 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from UIFiles import DesManager, AesManager#, RsaManager
+from UIFiles import DesManager, AesManager, RsaManager
 import re
 
 class ChoosePayloadTypePage(QtCore.QObject):
@@ -46,7 +46,8 @@ class ChoosePayloadTypePage(QtCore.QObject):
                             self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDirCrypt)
                             
                         elif(self.algorithmComboBox.currentIndex() == 2): #RSA
-                            print('RSA')
+                            
+                            RsaManager.write_encrypted_stream()
 
 
                     else:
@@ -178,6 +179,7 @@ class ChoosePayloadTypePage(QtCore.QObject):
         self.encryptionKeyTextEdit.setMaximumSize(QtCore.QSize(16777215, 45))
         self.encryptionKeyTextEdit.setObjectName("encryptionKeyTextEdit")
         self.encryptionKeyTextEdit.setEnabled(False)
+        self.encryptionKeyTextEdit.focusInEvent(self.encryptionKeyTextEditFocus)
         self.verticalLayout.addWidget(self.encryptionKeyTextEdit)
         self.verticalLayout_10 = QtWidgets.QVBoxLayout()
         self.verticalLayout_10.setObjectName("verticalLayout_10")
@@ -289,3 +291,6 @@ class ChoosePayloadTypePage(QtCore.QObject):
         else:
             self.publicKeyPushButton.setEnabled(False)
             self.privateKeyPushButton.setEnabled(False)
+
+    def encryptionKeyTextEditFocus(self):
+        self.encryptionKeyTextEdit.setPlainText("")

@@ -3,6 +3,7 @@
 import sys
 import UIFiles.morseDecipher
 from PyQt5 import QtWidgets, uic, QtGui
+from PyQt5.QtWidgets import QFileDialog
 
 class TanslationPane(QtWidgets.QDialog):
     def __init__(self):
@@ -14,12 +15,13 @@ class TanslationPane(QtWidgets.QDialog):
         ##language Key pointers and methods
         self.languageKeyComboBox = self.findChild(QtWidgets.QComboBox, 'languageKeyComboBox')
         self.languageKeyComboBox.activated[str].connect(self.keyChange)
-        self.languageKeyLabel.setPixmap(QtGui.QPixmap("hieroglyphics.jpg"))
+        self.languageKeyLabel.setPixmap(QtGui.QPixmap("./languageKeys/hieroglyphics.jpg"))
         self.languageKeyLabel = self.findChild(QtWidgets.QLabel, 'languageKeyLabel')
         
         ##User selected image pointers and methods
         self.selectedImageLabel = self.findChild(QtWidgets.QLabel, 'selectedImageLabel')
         self.selectImageButton = self.findChild(QtWidgets.QPushButton, 'selectImageButton')
+        self.selectImageButton.clicked.connect(self.selectImage)
         ##Morse Code Translation pointers and methods
         self.translateMorseCodeButton = self.findChild(QtWidgets.QPushButton, 'translateMorseCodeButton')
         self.translateMorseCodeButton.clicked.connect(self.morseCodeFunction)
@@ -29,16 +31,22 @@ class TanslationPane(QtWidgets.QDialog):
     ##Function that changed the language key according to the selected option on the comboBox 
     def keyChange(self, text):
         if self.languageKeyComboBox.currentText() == 'Hieroglyphics':
-            self.languageKeyLabel.setPixmap(QtGui.QPixmap("hieroglyphics.jpg"))
+            self.languageKeyLabel.setPixmap(QtGui.QPixmap("./languageKeys/hieroglyphics.jpg"))
         elif self.languageKeyComboBox.currentText() == 'Unknown Pokemon':
-            self.languageKeyLabel.setPixmap(QtGui.QPixmap("unknown.jpeg"))
+            self.languageKeyLabel.setPixmap(QtGui.QPixmap("./languageKeys/unknown.jpeg"))
         elif self.languageKeyComboBox.currentText() == 'Morse Code':
-            self.languageKeyLabel.setPixmap(QtGui.QPixmap("morseCode.jpeg"))
+            self.languageKeyLabel.setPixmap(QtGui.QPixmap("./languageKeys/morseCode.jpeg"))
         elif self.languageKeyComboBox.currentText() == 'Wingdings':
-            self.languageKeyLabel.setPixmap(QtGui.QPixmap("wingdings.gif"))
+            self.languageKeyLabel.setPixmap(QtGui.QPixmap("./languageKeys/wingdings.gif"))
         elif self.languageKeyComboBox.currentText() == 'PigPen':
-            self.languageKeyLabel.setPixmap(QtGui.QPixmap("pigpen.gif"))
+            self.languageKeyLabel.setPixmap(QtGui.QPixmap("./languageKeys/pigpen.gif"))
     
+    def selectImage(self):
+        selectedImage = QFileDialog.getOpenFileName(self, "Open File", " ", "*.png *.jpg *.jpeg *.bmp *.gif *.tif *.dib *.jpe *.jfif *.tiff")
+        selectedImage = str(selectedImage)
+        if (selectedImage != None and selectedImage != ""):
+            self.selectedImageLabel.setPixmap(QtGui.QPixmap(selectedImage))
+
     def morseCodeFunction(self):
         count = 0
         text = self.textEdit.toPlainText() 

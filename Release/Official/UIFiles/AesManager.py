@@ -1,5 +1,7 @@
-from AesCrypto import AesCrypto
-from AesKeyGeneration import AesKeyGenerator
+#from AesCrypto import AesCrypto
+#from AesKeyGeneration import AesKeyGenerator
+import UIFiles.AesCrypto
+import UIFiles.AesKeyGeneration
 
 
 def write_encrypted_text(key, out_filename, plaintext_filename, salt):

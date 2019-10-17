@@ -34,7 +34,6 @@ class EncodeFile(QtWidgets.QWidget):
         pixmap = QtGui.QPixmap()
         #TODO Validate payload Dir
         extension = os.path.splitext(payloadDir)[1]
-        print(extension)
         if (extension == ".png" or extension == ".jpeg" or extension == ".jpg" or extension == ".gif"):
             payloaddata = FileService.openFileContent(self, payloadDir)
             pixmap.loadFromData(payloaddata.read())

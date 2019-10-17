@@ -2,8 +2,10 @@ from PyQt5 import QtWidgets, uic, QtGui, QtCore
 import os
 import subprocess
 import re
-
+import os.path
+import time
 from fileservice import FileService
+import imghdr
 
 class DecodeFile(QtWidgets.QWidget):
 
@@ -34,14 +36,21 @@ class DecodeFile(QtWidgets.QWidget):
         self.label.setAlignment(QtCore.Qt.AlignCenter)  # center image label
         self.label_2 = self.findChild(QtWidgets.QLabel, 'payloadLabel_2')
         pixmap2 = QtGui.QPixmap()
-        newDir = "/home/kikohiho/Desktop/StegCapstone/StegoCapstone/Release/Official/UIFiles/recoveredFile" 
+        #newDir = "/home/kikohiho/Desktop/StegCapstone/StegoCapstone/Release/Official/UIFiles/recoveredFile" 
+        newDir = re.sub(r'\/(?=[^/]*$).*', '/recoveredFile', self.CarrierDir)
         stegCommand = "python ./UIFiles/stegScript.py -d -f " + self.CarrierDir + " " + newDir
         subprocess.Popen(stegCommand.split(), stdout=subprocess.PIPE)
-        payloaddata = FileService.openFileContent(self, newDir)                                ######### data of decoded image needs to go here 
-        pixmap2.loadFromData(payloaddata.read())
-        self.label_2.setPixmap(pixmap2)
-        self.label_2.resize(pixmap2.width(), pixmap2.height())
-        self.label_2.setAlignment(QtCore.Qt.AlignCenter)  # center image label
+        while not os.path.exists(newDir):
+            time.sleep(1)
+        if (imghdr.what(newDir) != None):
+            payloaddata = FileService.openFileContent(self, newDir)                                ######### data of decoded image needs to go here 
+            extension = os.path.splitext(newDir)
+            pixmap2.loadFromData(payloaddata.read())
+            self.label_2.setPixmap(pixmap2)
+            self.label_2.resize(pixmap2.width(), pixmap2.height())
+            self.label_2.setAlignment(QtCore.Qt.AlignCenter)  # center image label
+        else:
+            self.label_2.setText(newDir)
         self.pushButton_2 = self.findChild(QtWidgets.QAbstractButton, 'restartButton')
         self.pushButton_2.setText("Restart")
         self.pushButton_2.clicked.connect(self.RestartDecode)

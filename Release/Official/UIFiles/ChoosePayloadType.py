@@ -7,7 +7,7 @@
 # WARNING! All changes made in this file will be lost!
 from fileservice import FileService 
 from PyQt5 import QtCore, QtGui, QtWidgets
-from UIFiles import DesManager
+from UIFiles import DesManager, AesManager#, RsaManager
 import re
 
 class ChoosePayloadTypePage(QtCore.QObject):
@@ -36,11 +36,12 @@ class ChoosePayloadTypePage(QtCore.QObject):
                 if (payloadDir != ''):
                     #### Adding cryptographic components
                     if(self.cryptographyCheckBox.isChecked()):
+                        payloadDirCrypt = re.sub(r'\/(?=[^/]*$).*', '/EncryptedFile', payloadDir)
+                        password = self.encryptionKeyTextEdit.toPlainText()
                         if(self.algorithmComboBox.currentIndex() == 0): #AES
-                            print('AES')
+                            AesManager.write_encrypted_text(password.encode('ascii'), payloadDirCrypt, payloadDir, ) 
+                            self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDirCrypt)
                         elif(self.algorithmComboBox.currentIndex() == 1): #DES
-                            payloadDirCrypt = re.sub('\.', 'Crypted.', payloadDir)
-                            password = self.encryptionKeyTextEdit.toPlainText()
                             DesManager.write_encrypted_text(password.encode('ascii'), payloadDirCrypt, payloadDir)
                             self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDirCrypt)
                             
@@ -48,7 +49,8 @@ class ChoosePayloadTypePage(QtCore.QObject):
                             print('RSA')
 
 
-                    self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDir)
+                    else:
+                       self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDir)
             else:
                 self.show_encode_text.emit(self.imagedata, self.Config, self.carrierDir)
         else:
@@ -97,7 +99,7 @@ class ChoosePayloadTypePage(QtCore.QObject):
        # self.verticalLayout_4.addWidget(self.algorithmComboBox)
        # self.algorithmComboBox.setEnabled(False)
        # self.verticalLayout.addLayout(self.verticalLayout_4)
-       # self.encryptionKeyTextEdit = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
+       # self.encryptionKeyTextEdit = QtWidgets.QLineEdit(self.verticalLayoutWidget)
        # self.encryptionKeyTextEdit.setMaximumSize(QtCore.QSize(16777215, 45))
        # self.encryptionKeyTextEdit.setObjectName("encryptionKeyTextEdit")
        # self.verticalLayout.addWidget(self.encryptionKeyTextEdit)
@@ -141,7 +143,7 @@ class ChoosePayloadTypePage(QtCore.QObject):
        # QtCore.QMetaObject.connectSlotsByName(Form)
 
         self.verticalLayoutWidget = QtWidgets.QWidget(Form)
-        self.verticalLayoutWidget.setGeometry(QtCore.QRect(40, 130, 201, 272))
+        self.verticalLayoutWidget.setGeometry(QtCore.QRect(30, 80, 201, 361))
         self.verticalLayoutWidget.setObjectName("verticalLayoutWidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.verticalLayoutWidget)
         self.verticalLayout.setContentsMargins(10, 10, 10, 10)
@@ -170,12 +172,37 @@ class ChoosePayloadTypePage(QtCore.QObject):
         self.algorithmComboBox.addItems(['AES', 'DES', 'RSA'])
         self.cryptographyCheckBox.clicked.connect(self.cryptographyCheckBoxClicked)
         self.verticalLayout_4.addWidget(self.algorithmComboBox)
+        self.algorithmComboBox.currentIndexChanged.connect(self.algorithmComboBoxClicked)
         self.verticalLayout.addLayout(self.verticalLayout_4)
         self.encryptionKeyTextEdit = QtWidgets.QPlainTextEdit(self.verticalLayoutWidget)
         self.encryptionKeyTextEdit.setMaximumSize(QtCore.QSize(16777215, 45))
         self.encryptionKeyTextEdit.setObjectName("encryptionKeyTextEdit")
         self.encryptionKeyTextEdit.setEnabled(False)
         self.verticalLayout.addWidget(self.encryptionKeyTextEdit)
+        self.verticalLayout_10 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_10.setObjectName("verticalLayout_10")
+        self.privateKeyPushButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.privateKeyPushButton.setObjectName("privateKeyPushButton")
+        self.privateKeyPushButton.clicked.connect(self.privateKeyButtonClicked)
+        self.verticalLayout_10.addWidget(self.privateKeyPushButton)
+        self.privateKeyPushButton.setEnabled(False)
+        self.privateKeyLineEdit = QtWidgets.QLineEdit(self.verticalLayoutWidget)
+        self.privateKeyLineEdit.setObjectName("privateKeyLineEdit")
+        self.privateKeyLineEdit.setReadOnly(True)
+        self.verticalLayout_10.addWidget(self.privateKeyLineEdit)
+        self.verticalLayout.addLayout(self.verticalLayout_10)
+        self.verticalLayout_11 = QtWidgets.QVBoxLayout()
+        self.verticalLayout_11.setObjectName("verticalLayout_11")
+        self.publicKeyPushButton = QtWidgets.QPushButton(self.verticalLayoutWidget)
+        self.publicKeyPushButton.setObjectName("publicKeyPushButton")
+        self.publicKeyPushButton.clicked.connect(self.publicKeyButtonClicked)
+        self.verticalLayout_11.addWidget(self.publicKeyPushButton)
+        self.publicKeyPushButton.setEnabled(False)
+        self.publicKeyLineEdit = QtWidgets.QLineEdit(self.verticalLayoutWidget)
+        self.publicKeyLineEdit.setObjectName("publicKeyLineEdit")
+        self.publicKeyLineEdit.setReadOnly(True)
+        self.verticalLayout_11.addWidget(self.publicKeyLineEdit)
+        self.verticalLayout.addLayout(self.verticalLayout_11)
         self.horizontalLayoutWidget = QtWidgets.QWidget(Form)
         self.horizontalLayoutWidget.setGeometry(QtCore.QRect(490, 450, 221, 80))
         self.horizontalLayoutWidget.setObjectName("horizontalLayoutWidget")
@@ -226,9 +253,10 @@ class ChoosePayloadTypePage(QtCore.QObject):
         Form.setWindowTitle(_translate("Form", "Form"))
         self.textRadioButton.setText(_translate("Form", "Text"))
         self.fileRadioButton.setText(_translate("Form", "File"))
+        self.privateKeyPushButton.setText(_translate("Form", "Select Private Key"))
+        self.publicKeyPushButton.setText(_translate("Form", "Select Public Key"))
         self.cryptographyCheckBox.setText(_translate("Form", "Cryptography"))
-        self.encryptionKeyTextEdit.setPlainText(_translate("Form", "Encryption Key\n"
-""))
+        self.encryptionKeyTextEdit.setPlainText(_translate("Form", "Enter password here"))
         self.previousButton.setText(_translate("Form", "Prev"))
         self.nextButton.setText(_translate("Form", "Next"))
         self.ActionLabel.setText(_translate("Form", self.Config))
@@ -237,6 +265,27 @@ class ChoosePayloadTypePage(QtCore.QObject):
         if (self.cryptographyCheckBox.isChecked()):
             self.algorithmComboBox.setEnabled(True)
             self.encryptionKeyTextEdit.setEnabled(True)
+            if(self.algorithmComboBox.currentIndex() == 2):
+                self.publicKeyPushButton.setEnabled(True)
+                self.privateKeyPushButton.setEnabled(True)
         else:
             self.algorithmComboBox.setEnabled(False)
             self.encryptionKeyTextEdit.setEnabled(False)
+            self.publicKeyPushButton.setEnabled(False)
+            self.privateKeyPushButton.setEnabled(False)
+
+    def publicKeyButtonClicked(self):
+        publicKeyFile = FileService.openAnyFileNameDialog(self.Form, self.Form)
+        self.publicKeyLineEdit.setText(publicKeyFile)
+    
+    def privateKeyButtonClicked(self):
+        privateKeyFile = FileService.openAnyFileNameDialog(self.Form, self.Form)
+        self.privateKeyLineEdit.setText(privateKeyFile)
+    
+    def algorithmComboBoxClicked(self):
+        if(self.algorithmComboBox.currentIndex() == 2):
+            self.publicKeyPushButton.setEnabled(True)
+            self.privateKeyPushButton.setEnabled(True)
+        else:
+            self.publicKeyPushButton.setEnabled(False)
+            self.privateKeyPushButton.setEnabled(False)

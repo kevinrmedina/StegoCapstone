@@ -7,5 +7,6 @@ import re
 class RSAKeyGeneratorPage(QtWidgets.QDialog):
 
     def __init__(self):
-        super (RSAKeyGeneratorPage, self).__init__()
+        super(RSAKeyGeneratorPage, self).__init__()
         uic.loadUi('./UIFiles/generate_rsa_keys.ui', self)
+        self.private_key_file_path_button = self.findChild(QtWidgets.QPushButton, 'privateKeyFilePath')

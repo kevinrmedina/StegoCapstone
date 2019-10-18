@@ -94,7 +94,7 @@ class EncryptDecryptPage(QtWidgets.QDialog):
 
     def __on_pvk_button_clicked(self):
         self.private_key_path = FileService.openAnyFileNameDialog(self, self)
-        self.private_key_line_edit.setText(self.public_key_path)
+        self.private_key_line_edit.setText(self.private_key_path)
 
     def __on_finish_button_clicked(self):
         index = self.algo_combobox.currentIndex()

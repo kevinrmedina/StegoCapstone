@@ -4,7 +4,6 @@ from UIFiles.RsaCrypto import RsaCrypto
 def write_encrypted_stream(public_key, out_filename, in_filename):
     cipher = RsaCrypto(public_key)
     session_key = cipher.get_session_key()
-    print(session_key)
     nonce = cipher.get_nonce()
     in_file = open(in_filename, 'rb')
     plaintext_in = in_file.read()
@@ -29,7 +28,6 @@ def write_decrypted_stream(password, private_key, out_filename, cipher_text_file
     cipher_text_file.seek(288)
     cipher_text = cipher_text_file.read()
     cipher_text_file.close()
-    print('Extracted session key is ' + str(session_key))
     plaintext = RsaCrypto.decrypt(private_key, password, session_key, nonce, tag, cipher_text)
     out_file = open(out_filename, 'wb')
     out_file.write(plaintext)

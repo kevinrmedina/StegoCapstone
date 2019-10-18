@@ -28,6 +28,12 @@ class Controller:
     
     def __init__(self, MainWindow):
         self.MainWindow = MainWindow
+      
+        self.deencodepage = None
+        self.encodetext = None
+        self.decodefile = None
+        self.decodetext = None
+        self.encodefile = None
         pass
 
     def show_login(self):

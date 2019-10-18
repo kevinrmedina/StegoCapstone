@@ -16,6 +16,9 @@ class RSAKeyGeneratorPage(QtWidgets.QDialog):
         self.private_key_line_edit = self.findChild(QtWidgets.QLineEdit, 'lineEdit_2')
         self.password_line_edit = self.findChild(QtWidgets.QLineEdit, 'passwordLineEdit')
         self.generate_push_button = self.findChild(QtWidgets.QPushButton, 'generatePushButton')
+        self.public_key_line_edit.setReadOnly(True)
+        self.private_key_line_edit.setReadOnly(True)
+        self.private_key_file_path_button.clicked.connect(self.save_file())
 
     def save_file(self):
         file_path = FileService.saveFileDialog(self.Form, self.Form)

@@ -3,7 +3,8 @@ from PyQt5 import QtWidgets, uic, QtGui, QtCore
 import os
 import subprocess
 import re
-from Release.Official.fileservice import FileService
+from fileservice import FileService
+
 
 class RSAKeyGeneratorPage(QtWidgets.QDialog):
 
@@ -18,7 +19,7 @@ class RSAKeyGeneratorPage(QtWidgets.QDialog):
         self.generate_push_button = self.findChild(QtWidgets.QPushButton, 'generatePushButton')
         self.public_key_line_edit.setReadOnly(True)
         self.private_key_line_edit.setReadOnly(True)
-        self.private_key_file_path_button.clicked.connect(self.save_file())
+        self.private_key_file_path_button.clicked.connect(self.save_file)
 
     def save_file(self):
         file_path = FileService.saveFileDialog(self.Form, self.Form)

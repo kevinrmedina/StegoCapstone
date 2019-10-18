@@ -14,9 +14,9 @@ class ChoosePayloadTypePage(QtCore.QObject):
 
     show_encode_file = QtCore.pyqtSignal(object, object, object, object)  # Add switch_window signal for controller to use to switch layouts
     switch_previous = QtCore.pyqtSignal(object, object)  # Add switch_window signal for controller to use to switch layouts
-    show_encode_text = QtCore.pyqtSignal(object, object, object, object)
-    show_decode_text = QtCore.pyqtSignal(object, object, object, object)
-    show_decode_file = QtCore.pyqtSignal(object, object, object, object)
+    show_encode_text = QtCore.pyqtSignal(object, object, object, object, object, object)
+    show_decode_text = QtCore.pyqtSignal(object, object, object, object, object, object)
+    show_decode_file = QtCore.pyqtSignal(object, object, object, object, object, object)
     def __init__(self, imageData, config, CarrierDir):
         QtCore.QObject.__init__(self) # call init from parent class
         self.Form = QtWidgets.QWidget() # initialize widget (this is what Qt shows)

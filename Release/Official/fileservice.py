@@ -34,6 +34,7 @@ class FileService:
         fileName, _ = QFileDialog.getSaveFileName(widget,"QFileDialog.getSaveFileName()","","All Files (*);;Text Files (*.txt)", options=options)
         if fileName:
             print(fileName)
+        return fileName
 
     def openFileContent(self, fileName):
         # options = QFileDialog.Options()

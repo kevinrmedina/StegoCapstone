@@ -17,7 +17,7 @@ from UIFiles.EncodeText import EncodeText
 from UIFiles.ResultScreen import ResultScreen
 from UIFiles.EncryptDecryptPage import EncryptDecryptPage
 from UIFiles.RSAKeyGeneratorPage import RSAKeyGeneratorPage
-
+from UIFiles.hex import Hex_GUI
 
 WINDOWWIDTH = 800
 WINDOWHEIGHT = 600
@@ -177,6 +177,10 @@ class Controller:
     def ShowRSAKeyGeneratorPage(self):
         self.rsagenerator = RSAKeyGeneratorPage()
         self.rsagenerator.show()
+    
+    def ShowHexDump(self):
+        self.hexdump = Hex_GUI()
+        self.hexdump.show()
 
 
 
@@ -199,12 +203,17 @@ def main():
     rsageneratorAction.setShortcut("Ctrl+K")
     rsageneratorAction.setStatusTip('Open RSA Key generator page')
     rsageneratorAction.triggered.connect(controller.ShowRSAKeyGeneratorPage)
+    hexdumpAction = QtWidgets.QAction("Open Hexdump Page", MainWindow)
+    hexdumpAction.setShortcut("Ctrl+K")
+    hexdumpAction.setStatusTip('Open hex dump page')
+    hexdumpAction.triggered.connect(controller.ShowHexDump)
 
     mainMenu = MainWindow.menuBar()
     toolsMenu = mainMenu.addMenu('&Tools')
     toolsMenu.addAction(translationAction)
     toolsMenu.addAction(encryptdecryptAction)
     toolsMenu.addAction(rsageneratorAction)
+    toolsMenu.addAction(hexdumpAction)
     MainWindow.show()
     MainWindow.resize(640, 500)
     #MainWindow.setCentralWidget(self.Form)

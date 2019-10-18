@@ -9,19 +9,26 @@ from enum import Enum
 
 class Hex_GUI(object):
 	
-	def setupUi(self, Form):
-		Form.setObjectName("Form")
-		Form.setFixedSize(750, 550)
+	def show(self):
+		self.Form.show()
+	
+	def close(self):
+		self.Form.close()
 
-		self.downloadButton = QtWidgets.QPushButton(Form)
+	def setupUi(self):
+		self.Form = QtWidgets.QWidget() 
+		self.Form.setObjectName("Form")
+		self.Form.setFixedSize(750, 550)
+
+		self.downloadButton = QtWidgets.QPushButton(self.Form)
 		self.downloadButton.setGeometry(QtCore.QRect(60, 300, 171, 25))
 		self.downloadButton.setObjectName("downloadButton")
 
-		self.uploadButton = QtWidgets.QPushButton(Form)
+		self.uploadButton = QtWidgets.QPushButton(self.Form)
 		self.uploadButton.setGeometry(QtCore.QRect(90, 250, 111, 25))
 		self.uploadButton.setObjectName("uploadButton")
 
-		self.scrollArea = QtWidgets.QScrollArea(Form)
+		self.scrollArea = QtWidgets.QScrollArea(self.Form)
 		self.scrollArea.setGeometry(QtCore.QRect(280, 20, 411, 411))
 		#self.scrollArea.setWidgetResizable(True)
 		self.scrollArea.setObjectName("scrollArea")
@@ -36,12 +43,12 @@ class Hex_GUI(object):
 		self.scrollArea.setWidget(self.scrollAreaWidgetContents)
 		
 
-		self.closeButton = QtWidgets.QPushButton(Form)
+		self.closeButton = QtWidgets.QPushButton(self.Form)
 		self.closeButton.setGeometry(QtCore.QRect(600, 470, 89, 25))
 		self.closeButton.setObjectName("closeButton")
 
 		self.retranslateUi(Form)
-		QtCore.QMetaObject.connectSlotsByName(Form)
+		QtCore.QMetaObject.connectSlotsByName(self.Form)
 
 				
 		self.uploadButton.clicked.connect(self.openFile)
@@ -86,12 +93,12 @@ class Hex_GUI(object):
 			file = self.fileName
 			subprocess.call(["./Hexdump3.py", file, self.fileName2])
 						
-if __name__ == "__main__":
-	app = QtWidgets.QApplication(sys.argv)
-	Form = QtWidgets.QWidget()
-	ui = Hex_GUI()
-	ui.setupUi(Form)
-	Form.show()
-	sys.exit(app.exec_())
+# if __name__ == "__main__":
+# 	app = QtWidgets.QApplication(sys.argv)
+# 	Form = QtWidgets.QWidget()
+# 	ui = Hex_GUI()
+# 	ui.setupUi(Form)
+# 	Form.show()
+# 	sys.exit(app.exec_())
 
 

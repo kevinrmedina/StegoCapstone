@@ -73,8 +73,11 @@ class DecodeFile(QtWidgets.QWidget):
 
         elif self.cryptoAlgorithm == 3:  #RSA
             ####### THIS IS WHERE THE RSA PRIVATE KEY STUFF GOES MANUEL ############
-            RsaManager.write_decrypted_stream(self.password.encode('ascii'),self.privateKey, newDirCrypt, newDir)
-            if (imghdr.what(newDirCrypt) != None):
+            pvk_file = open(self.privateKey, 'rb')
+            pvk_bytes = pvk_file.read()
+            pvk_file.close()
+            RsaManager.write_decrypted_stream(self.password.encode('ascii'), pvk_bytes, newDirCrypt, newDir)
+            if imghdr.what(newDirCrypt) is not None:
                 payloaddata = FileService.openFileContent(self, newDirCrypt)                                ######### data of decoded image needs to go here 
                 extension = os.path.splitext(newDirCrypt)
                 pixmap2.loadFromData(payloaddata.read())
@@ -85,7 +88,7 @@ class DecodeFile(QtWidgets.QWidget):
                 self.label_2.setText(newDirCrypt)
 
         elif self.cryptoAlgorithm == 0:  #Nothing
-            if (imghdr.what(newDir) != None):
+            if imghdr.what(newDir) is not None:
                 payloaddata = FileService.openFileContent(self, newDir)                                ######### data of decoded image needs to go here 
                 extension = os.path.splitext(newDir)
                 pixmap2.loadFromData(payloaddata.read())

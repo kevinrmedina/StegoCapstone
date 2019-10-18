@@ -12,14 +12,14 @@ class RSAKeyGeneratorPage(QtWidgets.QDialog):
     def __init__(self):
         super(RSAKeyGeneratorPage, self).__init__()
         uic.loadUi('./UIFiles/generate_rsa_keys.ui', self)
-        self.file_name_pub_key = ""
-        self.file_name_priv_key = ""
+        self.file_name_pub_key = None
+        self.file_name_priv_key = None
         self.public_key_file_path_button = self.findChild(QtWidgets.QPushButton, 'publicKeyFilePath')
         self.private_key_file_path_button = self.findChild(QtWidgets.QPushButton, 'privateKeyFilePath')
         self.public_key_line_edit = self.findChild(QtWidgets.QLineEdit, 'lineEdit')
         self.private_key_line_edit = self.findChild(QtWidgets.QLineEdit, 'lineEdit_2')
         self.password_line_edit = self.findChild(QtWidgets.QLineEdit, 'passwordLineEdit')
-        self.generate_push_button = self.findChild(QtWidgets.QPushButton, 'generatePushButton')
+        self.generate_push_button = self.findChild(QtWidgets.QPushButton, 'generatePushbutton')
         self.public_key_line_edit.setReadOnly(True)
         self.private_key_line_edit.setReadOnly(True)
         self.public_key_file_path_button.clicked.connect(self.save_public)
@@ -59,6 +59,7 @@ class RSAKeyGeneratorPage(QtWidgets.QDialog):
         private_key_file = open(self.file_name_priv_key, 'wb')
         private_key_file.write(private_key)
         private_key_file.close()
+        self.close()
 
 
 

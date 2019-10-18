@@ -1,0 +1,10 @@
+from UIFiles import AesManager
+
+string = "something here"
+password = "hunter2"
+encrypted = AesManager.write_encrypted_string(password, string)
+
+print(encrypted)
+
+decrypted = AesManager.write_decrypted_string(password, encrypted)
+print(decrypted)

@@ -59,7 +59,15 @@ class ChoosePayloadTypePage(QtCore.QObject):
                     else:
                        self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDir)
             else:
-                self.show_encode_text.emit(self.imagedata, self.Config, self.carrierDir)
+                if(self.cryptographyCheckBox.isChecked()):
+                    if self.algorithmComboBox.currentIndex() == 0:  # AES
+                        self.show_encode_text.emit(self.imagedata, self.Config, self.carrierDir, 1, password, publicKey)
+                    elif self.algorithmComboBox.currentIndex() == 1:  # DES
+                        self.show_encode_text.emit(self.imagedata, self.Config, self.carrierDir, 2, password, publicKey)
+                    elif self.algorithmComboBox.currentIndex() == 2:  # RSA
+                        self.show_encode_text.emit(self.imagedata, self.Config, self.carrierDir, 3, password, publicKey)
+                else:
+                    self.show_encode_text.emit(self.imagedata, self.Config, self.carrierDir, 0, password, publicKey)
         else:
             if (self.fileRadioButton.isChecked()):
                 if(self.cryptographyCheckBox.isChecked()):

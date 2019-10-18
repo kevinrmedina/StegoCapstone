@@ -3,6 +3,7 @@ from PyQt5 import QtWidgets, uic, QtGui, QtCore
 import os
 import subprocess
 import re
+from UIFiles import AesManager, DesManager, RsaManager
 
 class EncodeText(QtWidgets.QWidget):
 
@@ -12,6 +13,8 @@ class EncodeText(QtWidgets.QWidget):
     def ShowResult(self):
         self.EncodingString = self.decodeTextArea.toPlainText()
         print(self.EncodingString)
+        if self.cryptoAlgorithm == 1: #AES
+            AesManager.write_encrypted_text(self.password.encode('ascii'),)
         newDir = re.sub(r'\.png', 'STEGGED.png', self.carrierDir)
         #stegCommand = "python ./UIFiles/stegScript.py -e -t " + " " + self.carrierDir + " " + newDir + " " + self.EncodingString
         stegCommand = "python ./UIFiles/stegScript.py -e -t " + " " + self.carrierDir + " " + newDir + " "
@@ -23,12 +26,15 @@ class EncodeText(QtWidgets.QWidget):
     def ShowPrevious(self):
         self.switch_previous.emit(self.imageData, self.config, self.carrierDir, 3)
 
-    def __init__(self, imageData, config, CarrierDir, cryptoAlgorithm):
+    def __init__(self, imageData, config, CarrierDir, cryptoAlgorithm, password, publicKey):
         super (EncodeText, self).__init__()
         uic.loadUi('./UIFiles/EncodeText.ui', self)
         self.imageData = imageData
         self.config = config
         self.carrierDir = CarrierDir
+        self.cryptoAlgorithm = cryptoAlgorithm
+        self.password = password
+        self.publicKey = publicKey
         self.carrierLabel = self.findChild(QtWidgets.QLabel, 'carrierLabel')
         pixmap = QtGui.QPixmap()
         pixmap.loadFromData(imageData)

@@ -23,12 +23,15 @@ class DecodeFile(QtWidgets.QWidget):
         self.switch_previous.emit(self.imageData, self.config, self.CarrierDir)
         pass
 
-    def __init__(self, imageData, config, CarrierDir, cryptoAlgorithm):
+    def __init__(self, imageData, config, CarrierDir, cryptoAlgorithm, password, privateKey):
         super (DecodeFile, self).__init__()
         uic.loadUi('./UIFiles/DecodeFile.ui', self)
         self.imageData = imageData
         self.config = config
         self.CarrierDir = CarrierDir
+        self.cryptoAlgorithm = cryptoAlgorithm
+        self.password = password
+        self.privateKey = privateKey
         self.label = self.findChild(QtWidgets.QLabel, 'carrierLabel')
         pixmap = QtGui.QPixmap()
         pixmap.loadFromData(imageData)
@@ -39,22 +42,59 @@ class DecodeFile(QtWidgets.QWidget):
         pixmap2 = QtGui.QPixmap()
         #newDir = "/home/kikohiho/Desktop/StegCapstone/StegoCapstone/Release/Official/UIFiles/recoveredFile" 
         newDir = re.sub(r'\/(?=[^/]*$).*', '/recoveredFile', self.CarrierDir)
+        newDirCrypt = newDir + "Decrypted"
         stegCommand = "python ./UIFiles/stegScript.py -d -f " + self.CarrierDir + " " + newDir
         subprocess.Popen(stegCommand.split(), stdout=subprocess.PIPE)
         while not os.path.exists(newDir):
             time.sleep(1)
-        if cryptoAlgorithm == 1:  #AES
-            AesManager.write_decrypted_text(password.encode('ascii'), newDir + 'Decrypted', newDir)
+        if self.cryptoAlgorithm == 1:  #AES
+            AesManager.write_decrypted_text(self.password.encode('ascii'), newDirCrypt, newDir)
+            if (imghdr.what(newDirCrypt) != None):
+                payloaddata = FileService.openFileContent(self, newDirCrypt)                                ######### data of decoded image needs to go here 
+                extension = os.path.splitext(newDirCrypt)
+                pixmap2.loadFromData(payloaddata.read())
+                self.label_2.setPixmap(pixmap2)
+                self.label_2.resize(pixmap2.width(), pixmap2.height())
+                self.label_2.setAlignment(QtCore.Qt.AlignCenter)  # center image label
+            else:
+                self.label_2.setText(newDirCrypt)
 
-        if (imghdr.what(newDir) != None):
-            payloaddata = FileService.openFileContent(self, newDir)                                ######### data of decoded image needs to go here 
-            extension = os.path.splitext(newDir)
-            pixmap2.loadFromData(payloaddata.read())
-            self.label_2.setPixmap(pixmap2)
-            self.label_2.resize(pixmap2.width(), pixmap2.height())
-            self.label_2.setAlignment(QtCore.Qt.AlignCenter)  # center image label
-        else:
-            self.label_2.setText(newDir)
+        elif self.cryptoAlgorithm == 2:  #DES
+            DesManager.write_decrypted_text(self.password.encode('ascii'), newDirCrypt, newDir)
+            if (imghdr.what(newDirCrypt) != None):
+                payloaddata = FileService.openFileContent(self, newDirCrypt)                                ######### data of decoded image needs to go here 
+                extension = os.path.splitext(newDirCrypt)
+                pixmap2.loadFromData(payloaddata.read())
+                self.label_2.setPixmap(pixmap2)
+                self.label_2.resize(pixmap2.width(), pixmap2.height())
+                self.label_2.setAlignment(QtCore.Qt.AlignCenter)  # center image label
+            else:
+                self.label_2.setText(newDirCrypt)
+
+        elif self.cryptoAlgorithm == 3:  #RSA
+            ####### THIS IS WHERE THE RSA PRIVATE KEY STUFF GOES MANUEL ############
+            RsaManager.write_decrypted_stream(self.password.encode('ascii'),self.privateKey, newDirCrypt, newDir)
+            if (imghdr.what(newDirCrypt) != None):
+                payloaddata = FileService.openFileContent(self, newDirCrypt)                                ######### data of decoded image needs to go here 
+                extension = os.path.splitext(newDirCrypt)
+                pixmap2.loadFromData(payloaddata.read())
+                self.label_2.setPixmap(pixmap2)
+                self.label_2.resize(pixmap2.width(), pixmap2.height())
+                self.label_2.setAlignment(QtCore.Qt.AlignCenter)  # center image label
+            else:
+                self.label_2.setText(newDirCrypt)
+
+        elif self.cryptoAlgorithm == 0:  #Nothing
+            if (imghdr.what(newDir) != None):
+                payloaddata = FileService.openFileContent(self, newDir)                                ######### data of decoded image needs to go here 
+                extension = os.path.splitext(newDir)
+                pixmap2.loadFromData(payloaddata.read())
+                self.label_2.setPixmap(pixmap2)
+                self.label_2.resize(pixmap2.width(), pixmap2.height())
+                self.label_2.setAlignment(QtCore.Qt.AlignCenter)  # center image label
+            else:
+                self.label_2.setText(newDir)
+
         self.pushButton_2 = self.findChild(QtWidgets.QAbstractButton, 'restartButton')
         self.pushButton_2.setText("Restart")
         self.pushButton_2.clicked.connect(self.RestartDecode)

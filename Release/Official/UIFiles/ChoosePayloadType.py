@@ -29,6 +29,9 @@ class ChoosePayloadTypePage(QtCore.QObject):
         self.Form.show()
 
     def EmitSwitchNext(self): # implement event that will emit the switch window signal 
+        password = self.encryptionKeyTextEdit.toPlainText()
+        privateKey = self.privateKeyLineEdit.text()
+        publicKey = self.publicKeyLineEdit.text()
         if (self.Config == "Encode"):
             if (self.fileRadioButton.isChecked()):
                 #Show Browser to select payload and pass it to next page (pass payload directory)
@@ -37,7 +40,6 @@ class ChoosePayloadTypePage(QtCore.QObject):
                     #### Adding cryptographic components
                     if(self.cryptographyCheckBox.isChecked()):
                         payloadDirCrypt = re.sub(r'\/(?=[^/]*$).*', '/EncryptedFile', payloadDir)
-                        password = self.encryptionKeyTextEdit.toPlainText()
                         if self.algorithmComboBox.currentIndex() == 0:  # AES
                             AesManager.write_encrypted_text(password.encode('ascii'), payloadDirCrypt, payloadDir)
                             self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDirCrypt)
@@ -62,23 +64,23 @@ class ChoosePayloadTypePage(QtCore.QObject):
             if (self.fileRadioButton.isChecked()):
                 if(self.cryptographyCheckBox.isChecked()):
                     if self.algorithmComboBox.currentIndex() == 0:  # AES
-                        self.show_decode_file.emit(self.imagedata, self.Config, self.carrierDir, 1)
+                        self.show_decode_file.emit(self.imagedata, self.Config, self.carrierDir, 1, password, privateKey)
                     elif self.algorithmComboBox.currentIndex() == 1:  # DES
-                        self.show_decode_file.emit(self.imagedata, self.Config, self.carrierDir, 2)
+                        self.show_decode_file.emit(self.imagedata, self.Config, self.carrierDir, 2, password, privateKey)
                     elif self.algorithmComboBox.currentIndex() == 2:  # RSA
-                        self.show_decode_file.emit(self.imagedata, self.Config, self.carrierDir, 3)
+                        self.show_decode_file.emit(self.imagedata, self.Config, self.carrierDir, 3, password, privateKey)
                 else:
-                    self.show_decode_file.emit(self.imagedata, self.Config, self.carrierDir, 0)
+                    self.show_decode_file.emit(self.imagedata, self.Config, self.carrierDir, 0, password, privateKey)
             else:
                 if(self.cryptographyCheckBox.isChecked()):
                     if self.algorithmComboBox.currentIndex() == 0: # AES
-                        self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir, 1)
+                        self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir, 1, password, privateKey)
                     elif self.algorithmComboBox.currentIndex() == 1: # DES
-                        self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir, 2)
+                        self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir, 2, password, privateKey)
                     elif self.algorithmComboBox.currentIndex() == 2: # RSA
-                        self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir, 3)
+                        self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir, 3, password, privateKey)
                 else:
-                    self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir, 0)
+                    self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir, 0, password, privateKey)
     
     def EmitSwitchPrevious(self): # implement event that will emit the switch window signal 
         self.switch_previous.emit(self.imagedata, self.carrierDir)

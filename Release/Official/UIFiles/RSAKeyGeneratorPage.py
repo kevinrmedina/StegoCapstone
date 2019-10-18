@@ -11,6 +11,8 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 
 from fileservice import FileService
 
+from UIFiles.RsaKeyGeneration import RsaKeyGenerator
+
 
 class Ui_Dialog(object):
     def setupUi(self, Dialog):

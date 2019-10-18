@@ -19,7 +19,7 @@ class DecodeText(QtWidgets.QWidget):
         self.switch_previous.emit(self.imageData, self.config, self.CarrierDir)
         pass
 
-    def __init__(self, imageData, config, CarrierDir):
+    def __init__(self, imageData, config, CarrierDir, cryptoAlgorithm):
         super (DecodeText, self).__init__()
         uic.loadUi('./UIFiles/DecodeText.ui', self)
         self.imageData = imageData

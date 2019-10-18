@@ -14,9 +14,9 @@ class ChoosePayloadTypePage(QtCore.QObject):
 
     show_encode_file = QtCore.pyqtSignal(object, object, object, object)  # Add switch_window signal for controller to use to switch layouts
     switch_previous = QtCore.pyqtSignal(object, object)  # Add switch_window signal for controller to use to switch layouts
-    show_encode_text = QtCore.pyqtSignal(object, object, object)
-    show_decode_text = QtCore.pyqtSignal(object, object, object)
-    show_decode_file = QtCore.pyqtSignal(object, object, object)
+    show_encode_text = QtCore.pyqtSignal(object, object, object, object)
+    show_decode_text = QtCore.pyqtSignal(object, object, object, object)
+    show_decode_file = QtCore.pyqtSignal(object, object, object, object)
     def __init__(self, imageData, config, CarrierDir):
         QtCore.QObject.__init__(self) # call init from parent class
         self.Form = QtWidgets.QWidget() # initialize widget (this is what Qt shows)
@@ -54,17 +54,31 @@ class ChoosePayloadTypePage(QtCore.QObject):
                                 RsaManager.write_encrypted_stream(public_key, payloadDirCrypt, payloadDir)
                                 self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDirCrypt)
                                             
-
-
                     else:
                        self.show_encode_file.emit(self.imagedata, self.Config, self.carrierDir, payloadDir)
             else:
                 self.show_encode_text.emit(self.imagedata, self.Config, self.carrierDir)
         else:
             if (self.fileRadioButton.isChecked()):
-                self.show_decode_file.emit(self.imagedata, self.Config, self.carrierDir)
+                if(self.cryptographyCheckBox.isChecked()):
+                    if self.algorithmComboBox.currentIndex() == 0:  # AES
+                        self.show_decode_file.emit(self.imagedata, self.Config, self.carrierDir, 1)
+                    elif self.algorithmComboBox.currentIndex() == 1:  # DES
+                        self.show_decode_file.emit(self.imagedata, self.Config, self.carrierDir, 2)
+                    elif self.algorithmComboBox.currentIndex() == 2:  # RSA
+                        self.show_decode_file.emit(self.imagedata, self.Config, self.carrierDir, 3)
+                else:
+                    self.show_decode_file.emit(self.imagedata, self.Config, self.carrierDir, 0)
             else:
-                self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir)
+                if(self.cryptographyCheckBox.isChecked()):
+                    if self.algorithmComboBox.currentIndex() == 0: # AES
+                        self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir, 1)
+                    elif self.algorithmComboBox.currentIndex() == 1: # DES
+                        self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir, 2)
+                    elif self.algorithmComboBox.currentIndex() == 2: # RSA
+                        self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir, 3)
+                else:
+                    self.show_decode_text.emit(self.imagedata, self.Config, self.carrierDir, 0)
     
     def EmitSwitchPrevious(self): # implement event that will emit the switch window signal 
         self.switch_previous.emit(self.imagedata, self.carrierDir)

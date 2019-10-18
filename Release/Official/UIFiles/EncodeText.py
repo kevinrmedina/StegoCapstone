@@ -23,7 +23,7 @@ class EncodeText(QtWidgets.QWidget):
     def ShowPrevious(self):
         self.switch_previous.emit(self.imageData, self.config, self.carrierDir, 3)
 
-    def __init__(self, imageData, config, CarrierDir):
+    def __init__(self, imageData, config, CarrierDir, cryptoAlgorithm):
         super (EncodeText, self).__init__()
         uic.loadUi('./UIFiles/EncodeText.ui', self)
         self.imageData = imageData

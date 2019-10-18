@@ -6,6 +6,7 @@ import os.path
 import time
 from fileservice import FileService
 import imghdr
+from UIFiles import DesManager, AesManager, RsaManager
 
 class DecodeFile(QtWidgets.QWidget):
 
@@ -22,7 +23,7 @@ class DecodeFile(QtWidgets.QWidget):
         self.switch_previous.emit(self.imageData, self.config, self.CarrierDir)
         pass
 
-    def __init__(self, imageData, config, CarrierDir):
+    def __init__(self, imageData, config, CarrierDir, cryptoAlgorithm):
         super (DecodeFile, self).__init__()
         uic.loadUi('./UIFiles/DecodeFile.ui', self)
         self.imageData = imageData
@@ -42,6 +43,7 @@ class DecodeFile(QtWidgets.QWidget):
         subprocess.Popen(stegCommand.split(), stdout=subprocess.PIPE)
         while not os.path.exists(newDir):
             time.sleep(1)
+        if cryptoAlgorithm == 1
         if (imghdr.what(newDir) != None):
             payloaddata = FileService.openFileContent(self, newDir)                                ######### data of decoded image needs to go here 
             extension = os.path.splitext(newDir)

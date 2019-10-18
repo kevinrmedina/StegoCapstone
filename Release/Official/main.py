@@ -107,8 +107,8 @@ class Controller:
         self.encodefile.show()
         self.choosepayload.close()
      
-    def ShowDecodeFile(self, imageData, config, CarrierDir):
-        self.decodefile = DecodeFile(imageData, config, CarrierDir)
+    def ShowDecodeFile(self, imageData, config, CarrierDir, cryptoAlgorithm):
+        self.decodefile = DecodeFile(imageData, config, CarrierDir, cryptoAlgorithm)
         self.decodefile.gotoMainMenu.connect(self.show_home)
         self.decodefile.switch_previous.connect(self.ShowChoosePayloadTypePage)
         self.MainWindow.setCentralWidget(self.decodefile)
@@ -119,8 +119,8 @@ class Controller:
         except:
             pass
     
-    def ShowEncodeText(self, imageData, config, CarrierDir):
-        self.encodetext = EncodeText(imageData, config, CarrierDir)
+    def ShowEncodeText(self, imageData, config, CarrierDir, cryptoAlgorithm):
+        self.encodetext = EncodeText(imageData, config, CarrierDir, cryptoAlgorithm)
         self.encodetext.show_Result.connect(self.ShowResult)
         self.encodetext.switch_previous.connect(self.ShowChoosePayloadTypePage)
         self.MainWindow.setCentralWidget(self.encodetext)
@@ -134,18 +134,18 @@ class Controller:
         self.MainWindow.setCentralWidget(self.resultscreen)
         self.resultscreen.show()
 
-    def ResultGoBack(self, imageData, config, CarrierDir, lastPage, payloadDir):
+    def ResultGoBack(self, imageData, config, CarrierDir, lastPage, payloadDir, cryptoAlgorithm):
         if (lastPage == 1):
             self.ShowEncodeFile(imageData, config, CarrierDir, payloadDir)
         elif (lastPage == 2):
-            self.ShowDecodeFile(imageData, config, CarrierDir)
+            self.ShowDecodeFile(imageData, config, CarrierDir, cryptoAlgorithm)
         elif (lastPage == 3):
-            self.ShowEncodeText(imageData, config, CarrierDir)
+            self.ShowEncodeText(imageData, config, CarrierDir, cryptoAlgorithm)
         elif (lastPage == 4):
-            self.ShowDecodeText(imageData, config, CarrierDir)
+            self.ShowDecodeText(imageData, config, CarrierDir, cryptoAlgorithm)
 
-    def ShowDecodeText(self, imageData, config, CarrierDir):
-        self.decodetext = DecodeText(imageData, config, CarrierDir)
+    def ShowDecodeText(self, imageData, config, CarrierDir, cryptoAlgorithm):
+        self.decodetext = DecodeText(imageData, config, CarrierDir, cryptoAlgorithm)
         self.MainWindow.setCentralWidget(self.decodetext)
         self.decodetext.gotoMainMenu.connect(self.show_home)
         self.decodetext.switch_previous.connect(self.ShowChoosePayloadTypePage)

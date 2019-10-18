@@ -43,7 +43,9 @@ class DecodeFile(QtWidgets.QWidget):
         subprocess.Popen(stegCommand.split(), stdout=subprocess.PIPE)
         while not os.path.exists(newDir):
             time.sleep(1)
-        if cryptoAlgorithm == 1
+        if cryptoAlgorithm == 1:  #AES
+            AesManager.write_decrypted_text(password.encode('ascii'), newDir + 'Decrypted', newDir)
+
         if (imghdr.what(newDir) != None):
             payloaddata = FileService.openFileContent(self, newDir)                                ######### data of decoded image needs to go here 
             extension = os.path.splitext(newDir)

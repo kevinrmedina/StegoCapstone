@@ -14,7 +14,7 @@ from fileservice import FileService
 from UIFiles.RsaKeyGeneration import RsaKeyGenerator
 
 
-class Ui_Dialog(object):
+class RSAKeyGeneratorPage(object):
     def setupUi(self, Dialog):
         Dialog.setObjectName("Dialog")
         Dialog.resize(400, 300)

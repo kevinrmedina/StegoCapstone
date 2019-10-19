@@ -41,8 +41,22 @@ class EncodeText(QtWidgets.QWidget):
             os.remove("tempFilePlainText")
 
         elif self.cryptoAlgorithm == 3: #RSA
-            ###### A the RSA stuff#######
-            something = False 
+            tempFilePlainText = open("tempFilePlainText", 'w')
+            tempFilePlainText.write(self.EncodingString)
+            tempFilePlainText.close()
+            tempFileCipherText = "tempFileCipherText"
+            public_key_file_path = self.publicKey
+            public_key_file = open(public_key_file_path, 'rb')
+            public_key = public_key_file.read()
+            public_key_file.close()
+            RsaManager.write_encrypted_stream(public_key, tempFileCipherText, tempFilePlainText)
+            while os.path.isfile("tempFileCipherText") == False:
+               time.wait(1)
+            stegCommand = "python ./UIFiles/stegScript.py -e -f " + " " + self.carrierDir + " " + tempFileCipherText + " " + newDir
+            subprocess.Popen(stegCommand.split())
+            os.remove(tempFileCipherText)
+            os.remove("tempFilePlainText")
+
         elif self.cryptoAlgorithm == 0: #Nothing
             stegCommand = "python ./UIFiles/stegScript.py -e -t " + " " + self.carrierDir + " " + newDir + " "
             stegCommand = stegCommand.split() + [self.EncodingString]

@@ -40,6 +40,7 @@ def write_encrypted_string(password, plainText):
     cipher = AesCrypto(key)
     plainTextInBytes = bytes(plainText, 'utf-8')
     cipherText = salt + cipher.get_iv() + cipher.encrypt(plainTextInBytes)
+    cipherText = str(cipherText)
     return cipherText
 
 def write_decrypted_string(password, cipherText):

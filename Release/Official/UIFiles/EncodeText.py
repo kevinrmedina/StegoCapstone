@@ -1,6 +1,7 @@
 import sys
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
 import os
+import time
 import subprocess
 import re
 from UIFiles import AesManager, DesManager, RsaManager
@@ -12,14 +13,41 @@ class EncodeText(QtWidgets.QWidget):
 
     def ShowResult(self):
         self.EncodingString = self.decodeTextArea.toPlainText()
-        print(self.EncodingString)
-        if self.cryptoAlgorithm == 1: #AES
-            AesManager.write_encrypted_text(self.password.encode('ascii'),)
         newDir = re.sub(r'\.png', 'STEGGED.png', self.carrierDir)
-        #stegCommand = "python ./UIFiles/stegScript.py -e -t " + " " + self.carrierDir + " " + newDir + " " + self.EncodingString
-        stegCommand = "python ./UIFiles/stegScript.py -e -t " + " " + self.carrierDir + " " + newDir + " "
-        stegCommand = stegCommand.split() + [self.EncodingString]
-        subprocess.Popen(stegCommand)
+        if self.cryptoAlgorithm == 1: #AES
+            tempFilePlainText = open("tempFilePlainText", 'w')
+            tempFilePlainText.write(self.EncodingString)
+            tempFilePlainText.close()
+            tempFileCipherText = "tempFileCipherText"
+            AesManager.write_encrypted_text(self.password.encode('ascii'), tempFileCipherText, "tempFilePlainText")
+            while os.path.isfile(tempFileCipherText) == False:
+               time.wait(1)
+            stegCommand = "python ./UIFiles/stegScript.py -e -f " + self.carrierDir + " " + tempFileCipherText + " " + newDir
+            subprocess.Popen(stegCommand.split())
+            os.remove(tempFileCipherText)
+            os.remove("tempFilePlainText")
+            
+        elif self.cryptoAlgorithm == 2: #DES
+            tempFilePlainText = open("tempFilePlainText", 'w')
+            tempFilePlainText.write(self.EncodingString)
+            tempFilePlainText.close()
+            tempFileCipherText = "tempFileCipherText"
+            DesManager.write_encrypted_text(self.password.encode('ascii'), tempFileCipherText, "tempFilePlainText")
+            while os.path.isfile("tempFileCipherText") == False:
+               time.wait(1)
+            stegCommand = "python ./UIFiles/stegScript.py -e -f " + " " + self.carrierDir + " " + tempFileCipherText + " " + newDir
+            subprocess.Popen(stegCommand.split())
+            os.remove(tempFileCipherText)
+            os.remove("tempFilePlainText")
+
+        elif self.cryptoAlgorithm == 3: #RSA
+            ###### A the RSA stuff#######
+            something = False 
+        elif self.cryptoAlgorithm == 0: #Nothing
+            stegCommand = "python ./UIFiles/stegScript.py -e -t " + " " + self.carrierDir + " " + newDir + " "
+            stegCommand = stegCommand.split() + [self.EncodingString]
+            subprocess.Popen(stegCommand)
+
         ENCODEDIMAGERESULT = newDir                    ####################### Encoded image result goes here, use self.EncodingString
         self.show_Result.emit(newDir, self.imageData, self.carrierDir, self.config, 3)
         

@@ -19,12 +19,15 @@ class DecodeText(QtWidgets.QWidget):
         self.switch_previous.emit(self.imageData, self.config, self.CarrierDir)
         pass
 
-    def __init__(self, imageData, config, CarrierDir, cryptoAlgorithm):
+    def __init__(self, imageData, config, CarrierDir, cryptoAlgorithm, password, privateKey):
         super (DecodeText, self).__init__()
         uic.loadUi('./UIFiles/DecodeText.ui', self)
         self.imageData = imageData
         self.config = config
         self.CarrierDir = CarrierDir
+        self.cryptoAlgorithm = cryptoAlgorithm
+        self.password = password
+        self.privateKey = privateKey
         self.label = self.findChild(QtWidgets.QLabel, 'carrierLabel')
         pixmap = QtGui.QPixmap()
         pixmap.loadFromData(imageData)

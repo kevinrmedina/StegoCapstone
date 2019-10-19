@@ -8,7 +8,7 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-import subprocess
+import os
 
 ###########################
 # This class may serve as an example on how to setup a .py file generated from a .ui file to be compatible 
@@ -68,4 +68,4 @@ class HomePage(QtCore.QObject):   # inherit class from QObject rather than objec
     def runStegHide(self):
         something = False
     def runStegosuite(self):
-        subprocess.call('stegsuite')
+        os.system("stegosuite")

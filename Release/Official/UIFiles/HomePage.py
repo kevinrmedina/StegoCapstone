@@ -47,10 +47,10 @@ class HomePage(QtCore.QObject):   # inherit class from QObject rather than objec
         self.pushButton.setGeometry(QtCore.QRect(40, 70, 131, 61))
         self.pushButton.setObjectName("pushButton")
         self.pushButton.clicked.connect(self.EmitSwitch) # Add event to button that switches window to another layout
-        self.pushButton_2 = QtWidgets.QPushButton(Form)
-        self.pushButton_2.setGeometry(QtCore.QRect(80, 140, 131, 61))
-        self.pushButton_2.setObjectName("stegHideButton")
-        self.pushButton_2.clicked.connect(self.runStegHide) # Add event to button that switches window to another layout
+        #self.pushButton_2 = QtWidgets.QPushButton(Form)
+        #self.pushButton_2.setGeometry(QtCore.QRect(80, 140, 131, 61))
+        #self.pushButton_2.setObjectName("stegHideButton")
+        #self.pushButton_2.clicked.connect(self.runStegHide) # Add event to button that switches window to another layout
         self.pushButton_3 = QtWidgets.QPushButton(Form)
         self.pushButton_3.setGeometry(QtCore.QRect(120, 210, 131, 61))
         self.pushButton_3.setObjectName("stegsuiteButton")
@@ -63,7 +63,7 @@ class HomePage(QtCore.QObject):   # inherit class from QObject rather than objec
         Form.setWindowTitle(_translate("Form", "Home Page")) # Change title to your liking
         self.label.setText(_translate("Form", "Available Applications "))
         self.pushButton.setText(_translate("Form", "StegSleuth"))
-        self.pushButton_2.setText(_translate("Form", "StegHide"))
+        #self.pushButton_2.setText(_translate("Form", "StegHide"))
         self.pushButton_3.setText(_translate("Form", "Stegosuite"))
     def runStegHide(self):
         something = False

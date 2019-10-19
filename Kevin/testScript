@@ -1,0 +1,5 @@
+import subprocess
+
+command = "python ./translation_pane.py"
+
+subprocess.Popen(command.split())

@@ -1,11 +1,12 @@
 #!/usr/bin/env python
 
 import sys
-import UIFiles.morseDecipher
+#import UIFiles.morseDecipher
+from UIFiles import morseDecipher
 from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtWidgets import QFileDialog
 
-class TanslationPane(QtWidgets.QDialog):
+class TranslationPane(QtWidgets.QDialog):
     def __init__(self):
         super (TanslationPane, self).__init__()
         uic.loadUi('./UIFiles/Translation.ui', self)

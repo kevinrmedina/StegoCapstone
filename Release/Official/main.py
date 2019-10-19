@@ -1,4 +1,5 @@
 import sys
+import subprocess
 from PyQt5 import QtCore, QtWidgets, QtGui
 from PyQt5.QtWidgets import QDesktopWidget
 from PyQt5.QtGui import QPixmap
@@ -7,7 +8,7 @@ from UIFiles.HomePage import HomePage
 from UIFiles.BrowsePage import BrowsePage
 from UIFiles.EncodeDecodePage import EncodeDecodePage
 from UIFiles.ChoosePayloadType import ChoosePayloadTypePage
-from UIFiles.translation_pane import TanslationPane
+from UIFiles.translation_pane import TranslationPane
 #from UIFiles.EncryptionPage import EncryptionPage
 from UIFiles.TextPayloadPage import TextPayloadPage
 from UIFiles.EncodeFile import EncodeFile

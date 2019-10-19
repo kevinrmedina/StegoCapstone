@@ -174,8 +174,9 @@ class Controller:
         self.window_two.show()
 
     def OpenTranslationPane(self, randomobjectidontknowabout):
-        self.translation = TanslationPane()
-        self.translation.show()
+        subprocess.Popen(["python", "UIFiles/translation_pane.py"])
+        # self.translation = TanslationPane()
+        # self.translation.show()
 
     def ShowEncryptDecryptPage(self):
         self.encryptdecrypt = EncryptDecryptPage()
@@ -202,14 +203,17 @@ def main():
     translationAction.setShortcut("Ctrl+T")
     translationAction.setStatusTip('Open Translation Pane')
     translationAction.triggered.connect(controller.OpenTranslationPane)
+
     encryptdecryptAction = QtWidgets.QAction("Open Decrypt Encrypt Page", MainWindow)
     encryptdecryptAction.setShortcut("Ctrl+E")
     encryptdecryptAction.setStatusTip('Open decrypt and encrypt page')
     encryptdecryptAction.triggered.connect(controller.ShowEncryptDecryptPage)
+
     rsageneratorAction = QtWidgets.QAction("Open RSA key generator page", MainWindow)
     rsageneratorAction.setShortcut("Ctrl+K")
     rsageneratorAction.setStatusTip('Open RSA Key generator page')
     rsageneratorAction.triggered.connect(controller.ShowRSAKeyGeneratorPage)
+    
     hexdumpAction = QtWidgets.QAction("Open Hexdump Page", MainWindow)
     hexdumpAction.setShortcut("Ctrl+K")
     hexdumpAction.setStatusTip('Open hex dump page')

@@ -66,7 +66,7 @@ class DecodeText(QtWidgets.QWidget):
             subprocess.Popen(stegCommandFile.split())
             pvk_file = open(self.privateKey, 'rb')
             pvk_bytes = pvk_file.read()
-            pvk.close()
+            pvk_file.close()
             RsaManager.write_decrypted_stream(self.password.encode('ascii'), pvk_bytes, tempFileDecrypted, tempFileEncrypted)
             os.remove(tempFileEncrypted)
             fileWithText = open(tempFileDecrypted, 'r')

@@ -4,6 +4,7 @@ import sys
 import os
 import time
 import subprocess
+from fileservice import FileService
 #from UIFiles import morseDecipher
 from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtWidgets import QFileDialog
@@ -45,9 +46,11 @@ class TranslationPane(QtWidgets.QDialog):
             self.languageKeyLabel.setPixmap(QtGui.QPixmap("./languageKeys/pigpen.gif"))
     
     def selectImage(self):
-        selectedImage = QFileDialog.getOpenFileName(self, "Open File", " ", "*.png *.jpg *.jpeg *.bmp *.gif *.tif *.dib *.jpe *.jfif *.tiff")
+        selectedImage = FileService.openFileNameDialog(self, self) 
+        print(selectedImage)
         selectedImage = str(selectedImage)
-        if (selectedImage != None and selectedImage != ""):
+        print(selectedImage)
+        if (selectedImage != None or selectedImage != ""):
             self.selectedImageLabel.setPixmap(QtGui.QPixmap(selectedImage))
 
     def morseCodeFunction(self):

@@ -9,8 +9,6 @@ class FileService:
         options = QFileDialog.Options()
         options |= QFileDialog.DontUseNativeDialog
         fileName, _ = QFileDialog.getOpenFileName(widget,"QFileDialog.getOpenFileName()", "","*.png", options=options)
-        if fileName:
-            print(fileName)
         return fileName
 
     def openAnyFileNameDialog(self, widget):

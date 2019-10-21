@@ -1,7 +1,10 @@
 #!/usr/bin/env python
 
 import sys
-#import UIFiles.morseDecipher
+import os
+import time
+import subprocess
+#from UIFiles import morseDecipher
 from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtWidgets import QFileDialog
 
@@ -50,57 +53,78 @@ class TranslationPane(QtWidgets.QDialog):
     def morseCodeFunction(self):
         count = 0
         text = self.textEdit.toPlainText() 
-        text = text.encode('ascii', 'ignore')
+        #text = text.encode('ascii', 'ignore')
         for character in text: 
             if character != '.' and character != '-' and character != '/' and character != ' ':
                 count += 1
         if count >= 1:
             self.textEdit.clear()
             inputText = str.upper(str(text))
-            self.textEdit.append(encrypt(inputText.replace('\n', '')))
+            inputText.replace('\n', ' ')
+            command = 'python UIFiles/morseDecipher.py 1 '
+            command = command.split() + [str(inputText)]
+            process = subprocess.Popen(command)
+            process.wait()
+            while not os.path.exists('/tmp/morseCodeTemp'):
+                time.sleep(1)
+            tempFile = open('/tmp/morseCodeTemp', 'r')
+            morseCode = tempFile.read()
+            tempFile.close()
+            self.textEdit.append(morseCode)
+            os.remove('/tmp/morseCodeTemp')
+
         else:
             self.textEdit.clear()
-            self.textEdit.append(decrypt(str(text) + ' '))
+            command = 'python UIFiles/morseDecipher.py 2 '
+            command = command.split() + [str(text)]
+            process = subprocess.Popen(command)
+            process.wait()
+            while not os.path.exists('/tmp/morseCodeTemp'):
+                time.sleep(1)
+            tempFile = open('/tmp/morseCodeTemp', 'r')
+            asciiText = tempFile.read()
+            tempFile.close()
+            self.textEdit.append(asciiText)
+            os.remove('/tmp/morseCodeTemp')
 
-
-MORSE_CODE_DICT = { 'A':'.-', 'B':'-...',
-                    'C':'-.-.', 'D':'-..',
-                    'E':'.', 'F':'..-.',
-                    'G':'--.', 'H':'....',
-                    'I':'..', 'J':'.---',
-                    'K':'-.-', 'L':'.-..',
-                    'M':'--', 'N':'-.', 'O':'---',
-                    'P':'.--.', 'Q':'--.-', 'R':'.-.',
-                    'S':'...', 'T':'-', 'U':'..-', 'V':'...-',
-                    'W':'.--', 'X':'-..-', 'Y':'-.--', 'Z':'--..', '1':'.----',
-                    '2':'..---', '3':'...--', '4':'....-', '5':'.....',
-                    '6':'-....', '7':'--...', '8':'---..', '9':'----.',
-                    '0':'-----', ' ':'/', '':''}
-
-def encrypt(message):
-    #message = 'SOS'
-    cipher = ''
-    for letter in message:
-        if letter != ' ':
-            cipher += MORSE_CODE_DICT[letter] + ' '
-        else:
-            cipher += '/ '
-    return cipher
-
-def decrypt(message):
-    #message = '...'
-    decipher = ''
-    citext = ''
-
-    for letter in message:
-        if (letter != ' '):
-            citext += letter
-
-        else:
-            decipher += list(MORSE_CODE_DICT.keys())[list(MORSE_CODE_DICT.values()).index(citext)]
-            citext = ''
-    return decipher
-    #print decipher
+#MORSE_CODE_DICT = { 'A':'.-', 'B':'-...',
+#                    'C':'-.-.', 'D':'-..',
+#                    'E':'.', 'F':'..-.',
+#                    'G':'--.', 'H':'....',
+#                    'I':'..', 'J':'.---',
+#                    'K':'-.-', 'L':'.-..',
+#                    'M':'--', 'N':'-.', 'O':'---',
+#                    'P':'.--.', 'Q':'--.-', 'R':'.-.',
+#                    'S':'...', 'T':'-', 'U':'..-', 'V':'...-',
+#                    'W':'.--', 'X':'-..-', 'Y':'-.--', 'Z':'--..', '1':'.----',
+#                    '2':'..---', '3':'...--', '4':'....-', '5':'.....',
+#                    '6':'-....', '7':'--...', '8':'---..', '9':'----.',
+#                    '0':'-----', ' ':'/', '':''}
+#
+#def encrypt(message):
+#    #message = 'SOS'
+#    cipher = ''
+#    for letter in message:
+#        if letter != ' ':
+#            cipher += MORSE_CODE_DICT[letter] + ' '
+#        else:
+#            cipher += '/ '
+#    return cipher
+#
+#def decrypt(message):
+#    #message = '...'
+#    decipher = ''
+#    citext = ''
+#
+#    for letter in message:
+#        if (letter != ' '):
+#            citext += letter
+#
+#        else:
+#            decipher += list(MORSE_CODE_DICT.keys())[list(MORSE_CODE_DICT.values()).index(citext)]
+#            citext = ''
+#    return decipher
+#    #print decipher
 
 
 if __name__ == '__main__':

@@ -174,9 +174,9 @@ class Controller:
         self.window_two.show()
 
     def OpenTranslationPane(self, randomobjectidontknowabout):
-        subprocess.Popen(["python", "UIFiles/translation_pane.py"])
-        # self.translation = TanslationPane()
-        # self.translation.show()
+        #subprocess.Popen(["python", "UIFiles/translation_pane.py"])
+         self.translation = TranslationPane()
+         self.translation.show()
 
     def ShowEncryptDecryptPage(self):
         self.encryptdecrypt = EncryptDecryptPage()

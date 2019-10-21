@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+import sys
 
 MORSE_CODE_DICT = { 'A':'.-', 'B':'-...',
                     'C':'-.-.', 'D':'-..',
@@ -13,18 +14,22 @@ MORSE_CODE_DICT = { 'A':'.-', 'B':'-...',
                     '2':'..---', '3':'...--', '4':'....-', '5':'.....',
                     '6':'-....', '7':'--...', '8':'---..', '9':'----.',
                     '0':'-----', ' ':'/', '':''}
+option = sys.argv[1]
+message = sys.argv[2]
 
-def encrypt(message):
+if option == '1':
     #message = 'SOS'
     cipher = ''
     for letter in message:
         if letter != ' ':
             cipher += MORSE_CODE_DICT[letter] + ' '
         else:
-            cipher += '/'
-    return cipher
+            cipher += '/ '
+    tempFile = open('/tmp/morseCodeTemp', 'w')
+    tempFile.write(cipher)
+    tempFile.close()
 
-def decrypt(message):
+if option == '2':
     #message = '...'
     decipher = ''
     citext = ''
@@ -36,6 +41,7 @@ def decrypt(message):
         else:
             decipher += list(MORSE_CODE_DICT.keys())[list(MORSE_CODE_DICT.values()).index(citext)]
             citext = ''
-    return decipher
-    #print decipher
+    tempFile = open('/tmp/morseCodeTemp', 'w')
+    tempFile.write(decipher)
+    tempFile.close()
 

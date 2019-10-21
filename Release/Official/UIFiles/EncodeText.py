@@ -43,7 +43,7 @@ class EncodeText(QtWidgets.QWidget):
             os.remove(tempFilePT)
 
         elif self.cryptoAlgorithm == 3: #RSA
-            tempFilePlainText = open("tempFilePlainText", 'w')
+            tempFilePlainText = open(tempFilePT, 'w')
             tempFilePlainText.write(self.EncodingString)
             tempFilePlainText.close()
             public_key_file_path = self.publicKey

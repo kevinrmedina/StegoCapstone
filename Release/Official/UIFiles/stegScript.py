@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 from LSBSteg import *
-
+import os
 import sys
 
 def encodeFile(cF, pF, nF):
@@ -8,6 +8,7 @@ def encodeFile(cF, pF, nF):
     payload = open(pF, "rb").read()
     result = carrier.encode_binary(payload)
     cv2.imwrite(nF, result)
+    payload.close()
     return;
 
 def decodeFile(cF, nF):
@@ -15,6 +16,7 @@ def decodeFile(cF, nF):
     binaryExtract = carrier.decode_binary()
     newFile = open(nF, "wb")
     newFile.write(binaryExtract)
+    newFile.close()
     return;
 
 def encodeText(cF, nF, text):

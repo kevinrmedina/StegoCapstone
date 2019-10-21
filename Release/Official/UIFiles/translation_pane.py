@@ -1,17 +1,13 @@
 #!/usr/bin/env python
 
 import sys
-<<<<<<< HEAD
 #import UIFiles.morseDecipher
-from UIFiles import morseDecipher
-=======
->>>>>>> 05c3f8d5aac301a2996cbf38152724b56741d883
 from PyQt5 import QtWidgets, uic, QtGui
 from PyQt5.QtWidgets import QFileDialog
 
 class TranslationPane(QtWidgets.QDialog):
     def __init__(self):
-        super (TanslationPane, self).__init__()
+        super (TranslationPane, self).__init__()
         uic.loadUi('./UIFiles/Translation.ui', self)
 
         # Defining object pointers and connecting to their Methods
@@ -88,7 +84,7 @@ def encrypt(message):
         if letter != ' ':
             cipher += MORSE_CODE_DICT[letter] + ' '
         else:
-            cipher += '/'
+            cipher += '/ '
     return cipher
 
 def decrypt(message):
@@ -109,6 +105,6 @@ def decrypt(message):
 
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
-    translation = TanslationPane()
+    translation = TranslationPane()
     translation.show()
     sys.exit(app.exec_())

@@ -125,7 +125,6 @@ class LSBSteg():
         while i < l: #Read all bytes of the text
             tmp = self.read_byte() #So one byte
             i += 1
-            print(unhideTxt)
             unhideTxt += chr(int(tmp,2)) #Every chars concatenated to str
         return unhideTxt
 

@@ -8,7 +8,6 @@ def encodeFile(cF, pF, nF):
     payload = open(pF, "rb").read()
     result = carrier.encode_binary(payload)
     cv2.imwrite(nF, result)
-    payload.close()
     return;
 
 def decodeFile(cF, nF):

@@ -68,8 +68,8 @@ class TranslationPane(QtWidgets.QDialog):
             command = command.split() + [str(inputText)]
             process = subprocess.Popen(command)
             process.wait()
-            while not os.path.exists('/tmp/morseCodeTemp'):
-                time.sleep(1)
+            if os.path.exists('/tmp/morseCodeTemp'):
+                time.sleep(5)
             tempFile = open('/tmp/morseCodeTemp', 'r')
             morseCode = tempFile.read()
             tempFile.close()
@@ -84,8 +84,8 @@ class TranslationPane(QtWidgets.QDialog):
             command = command.split() + [inputText]
             process = subprocess.Popen(command)
             process.wait()
-            while not os.path.exists('/tmp/morseCodeTemp'):
-                time.sleep(1)
+            if os.path.exists('/tmp/morseCodeTemp'):
+                time.sleep(5)
             tempFile = open('/tmp/morseCodeTemp', 'r')
             asciiText = tempFile.read()
             tempFile.close()

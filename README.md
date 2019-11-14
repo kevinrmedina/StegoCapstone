@@ -7,4 +7,5 @@ Go to the root directory of the application folder and run "sudo bash installati
 and the necessary libraries.
 
 Running the application:
- Go to the root directory of the application folder and run "python3 main.py"
+
+Go to the root directory of the application folder and run "python3 main.py"
